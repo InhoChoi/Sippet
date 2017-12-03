@@ -2,8 +2,11 @@ package com.sippet.api;
 
 import com.sippet.domain.usertrack.UserTrack;
 import com.sippet.domain.usertrack.UserTrackRepository;
+import com.sippet.domain.usertrack.UserTrackPathNameCount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/track")
@@ -16,8 +19,8 @@ public class UserTrackController {
         return userTrackRepository.save(userTrack);
     }
 
-    @GetMapping(path = "/all")
-    public Iterable<UserTrack> getAll() {
-        return userTrackRepository.findAll();
+    @GetMapping(path = "/group_by_count/path_name")
+    public List<UserTrackPathNameCount> getPathNameCountList() {
+        return userTrackRepository.findCountGroupByPathName();
     }
 }
