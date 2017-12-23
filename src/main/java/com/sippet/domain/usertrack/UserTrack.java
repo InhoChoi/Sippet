@@ -1,12 +1,13 @@
 package com.sippet.domain.usertrack;
 
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -25,4 +26,8 @@ public class UserTrack {
 
     @CreatedDate
     private LocalDateTime createdAt;
+
+    private String trackingId;
+
+    private Boolean newVisitor;
 }
