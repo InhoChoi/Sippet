@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
-    @Query(value = "SELECT u.pathName as pathName, COUNT(u.pathName) as count FROM UserTrack u GROUP BY u.pathName")
+    @Query(value = "SELECT u.pathName as pathName, COUNT(u.pathName) as count FROM UserTrack u GROUP BY u.pathName ORDER BY COUNT(u.pathName) DESC")
     List<UserTrackPathNameCount> findCountGroupByPathName();
 }
