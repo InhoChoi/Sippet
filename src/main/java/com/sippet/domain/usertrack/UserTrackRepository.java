@@ -10,4 +10,10 @@ import java.util.List;
 public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
     @Query(value = "SELECT u.pathName as pathName, COUNT(u.pathName) as count FROM UserTrack u GROUP BY u.pathName ORDER BY COUNT(u.pathName) DESC")
     List<UserTrackPathNameCount> findCountGroupByPathName();
+
+    @Query(value = "SELECT COUNT(DISTINCT u.trackingId) as count FROM UserTrack u WHERE u.newVisitor = true")
+    int findCountNewVisitor();
+
+    @Query(value = "SELECT COUNT(DISTINCT u.trackingId) FROM UserTrack u")
+    int findCountTotalVisitor();
 }

@@ -16,6 +16,8 @@
       padding-top: 5rem;
     }
 
+
+
     </style>
 </head>
 <body>
@@ -29,14 +31,32 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/dashboard">Dashbaord <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/dashboard">대시보드 <span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
 </nav>
 <main class="container">
     <div id="app" class="row">
-        <visit-count-chart :chart-data="charData"></visit-count-chart>
+        <div class="col-6" style="width: 20rem;">
+            <div class="card">
+                <h4 class="card-header">페이지별 클릭 횟수</h4>
+                <div class="card-body">
+                    <visit-count-chart :chart-data="charData"></visit-count-chart>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" style="width: 20rem;">
+            <div class="card" style="height: 100%;">
+                <h4 class="card-header">방문자수</h4>
+                <div class="card-body">
+                    <div>
+                        <h5>전체 방문자 수 : {{totalVisitorCount}}</h5>
+                        <h5>새로운 방문자 수 : {{newVisitorCount}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 

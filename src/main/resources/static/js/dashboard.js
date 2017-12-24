@@ -24,14 +24,15 @@ Vue.component('visit-count-chart', {
     mixins: [VueChartJs.mixins.reactiveProp],
     mounted() {
         this.renderChart(this.chartData, {
+           categoryPercentage: 1.0,
+           barPercentage: 1.0,
            legend: {
                 display: false
             },
             responsive: true,
             maintainAspectRatio: false,
             title: {
-                display: true,
-                text: '페이지별 클릭횟수'
+                display: true
             }
         })
     }
@@ -42,13 +43,24 @@ var app = new Vue({
     el: '#app',
     data: {
         charData: {},
+        totalVisitorCount: "",
+        newVisitorCount: ""
     },
-    mounted: function() {
+    beforeCreate: function() {
         var _this = this;
+
         $.ajax({
             url: "/api/track/group_by_count/path_name",
             success: function(data){
                 _this.charData = createChartData(data, '#f87979');
+            }
+        });
+
+        $.ajax({
+            url: "/api/track/count/visitor",
+            success: function(data){
+                _this.totalVisitorCount = data.total;
+                _this.newVisitorCount = data.newVisitor;
             }
         });
     }
