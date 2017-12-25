@@ -8,4 +8,4 @@ CREATE TABLE `user_track` (
   `new_visitor` tinyint(1) DEFAULT 0,
   `created_at`datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;s
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
