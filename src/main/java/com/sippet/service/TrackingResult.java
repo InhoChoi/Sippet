@@ -11,7 +11,7 @@ public class TrackingResult {
     private String trackingId;
     private Boolean newVisitor;
 
-    public static TrackingResult newUser() {
+    static TrackingResult newUser() {
         TrackingResult trackingResult = new TrackingResult();
         trackingResult.trackingId = TrackingIDGenerator.generate();
         trackingResult.newVisitor = true;
