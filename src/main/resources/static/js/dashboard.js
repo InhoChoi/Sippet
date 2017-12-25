@@ -1,36 +1,67 @@
-$.ajax("/api/track/group_by_count/path_name")
-  .done(function(data) {
-    var labels = _.map(data, function(data) {
-      return data.pathName;
-    });
+function getPathName(data) {
+    return data.pathName;
+}
 
-    var countData = _.map(data, function(data) {
-      return data.count;
-    });
+function getCount(data) {
+    return data.count;
+}
 
-    var options = {
-      type: 'horizontalBar',
-      data: {
-        labels: labels,
+function createChartData(data, backgroundColor) {
+    var chartLabels = _.map(data, getPathName);
+    var chartDatas = _.map(data, getCount);
+
+    return {
+        labels: chartLabels,
         datasets: [{
-          label: "Count by path name",
-          data: countData,
-          borderWidth: 1
+            backgroundColor: backgroundColor,
+            data: chartDatas
         }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
     };
+}
 
-    new Chart($("#myChart"), options);
-    new Chart($("#myChart2"), options);
-    new Chart($("#myChart3"), options);
-    $("#myChart").removeClass();
-  });
+Vue.component('visit-count-chart', {
+    extends: VueChartJs.HorizontalBar,
+    mixins: [VueChartJs.mixins.reactiveProp],
+    mounted() {
+        this.renderChart(this.chartData, {
+           categoryPercentage: 1.0,
+           barPercentage: 1.0,
+           legend: {
+                display: false
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            title: {
+                display: true
+            }
+        })
+    }
+
+})
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        charData: {},
+        totalVisitorCount: "",
+        newVisitorCount: ""
+    },
+    beforeCreate: function() {
+        var _this = this;
+
+        $.ajax({
+            url: "/api/track/group_by_count/path_name",
+            success: function(data){
+                _this.charData = createChartData(data, '#f87979');
+            }
+        });
+
+        $.ajax({
+            url: "/api/track/count/visitor",
+            success: function(data){
+                _this.totalVisitorCount = data.total;
+                _this.newVisitorCount = data.newVisitor;
+            }
+        });
+    }
+})

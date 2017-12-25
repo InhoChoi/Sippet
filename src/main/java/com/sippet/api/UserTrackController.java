@@ -31,6 +31,7 @@ public class UserTrackController {
 
         bakeTrackingCookie(httpServletResponse, trackingResult);
 
+
         final UserTrack userTrack = UserTrack.builder()
                 .pathName(userTrackDto.getPathName())
                 .referrer(userTrackDto.getReferrer())
@@ -56,5 +57,13 @@ public class UserTrackController {
     @GetMapping(path = "/group_by_count/path_name")
     public List<UserTrackPathNameCount> getPathNameCountList() {
         return userTrackRepository.findCountGroupByPathName();
+    }
+
+    @GetMapping(path = "/count/visitor")
+    public VisitorCount getNewVisitorCount() {
+        return VisitorCount.create(
+                userTrackRepository.findCountTotalVisitor(),
+                userTrackRepository.findCountNewVisitor()
+        );
     }
 }
