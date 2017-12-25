@@ -1,22 +1,19 @@
 package com.sippet.service;
 
-import com.sippet.util.NullResolver;
+import com.sippet.util.NullChecker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
 
 
 @Slf4j
 @Service
 public class TrackingResolver {
     public TrackingResult resolve(Boolean newVisitor, String trackingId) {
-//        if (Objects.isNull(newVisitor) || Objects.isNull(trackingId)) {
-//            return TrackingResult.newUser();
-//        }
-        if(NullResolver.resolveArrayList(new ArrayList<Object>(Arrays.asList(newVisitor, trackingId)))) {
+
+        if(NullChecker.check(newVisitor, trackingId)) {
             return TrackingResult.newUser();
         }
 
