@@ -1,4 +1,4 @@
-package com.sippet.service;
+package com.sippet.service.tracking;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -13,10 +13,8 @@
             src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <style>
     body {
-      padding-top: 5rem;
+        padding-top: 5rem;
     }
-
-
 
     </style>
 </head>
@@ -28,7 +26,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="/dashboard">대시보드 <span class="sr-only">(current)</span></a>
@@ -37,8 +35,12 @@
     </div>
 </nav>
 <main class="container">
-    <div id="app" class="row">
-        <div class="col-6" style="width: 20rem;">
+    <div class="row">
+        <h5 class="col-12 text-right"><span th:text="${year}">2018</span>년 <span th:text="${month}">1</span>월 <span
+                th:text="${day}">4</span>일</h5>
+    </div>
+    <div class="row">
+        <div id="app" class="col-12">
             <div class="card">
                 <h4 class="card-header">페이지별 클릭 횟수</h4>
                 <div class="card-body">
@@ -46,13 +48,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-6" style="width: 20rem;">
+    </div>
+    <div class="row">
+        <div class="col-6" style="width: 20rem; height: 10rem;">
             <div class="card" style="height: 100%;">
                 <h4 class="card-header">방문자수</h4>
                 <div class="card-body">
                     <div>
-                        <h5>전체 방문자 수 : {{totalVisitorCount}}</h5>
-                        <h5>새로운 방문자 수 : {{newVisitorCount}}</h5>
+                        <h5>전체 방문자 수 : <span th:text="${totalVisitorCount}">0</span></h5>
+                        <h5>새로운 방문자 수 : <span th:text="${newVisitorCount}">0</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" style="width: 20rem; height: 10rem;">
+            <div class="card" style="height: 100%;">
+                <h4 class="card-header">유저 재방문</h4>
+                <div class="card-body">
+                    <div>
+                        <h5>재방문 율 : <span>40</span>%</h5>
+                        <h5>평균 재방문 기간 : <span>3.3333</span>일</h5>
                     </div>
                 </div>
             </div>

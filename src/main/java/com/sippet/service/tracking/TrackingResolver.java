@@ -1,11 +1,8 @@
-package com.sippet.service;
+package com.sippet.service.tracking;
 
 import com.sippet.util.NullChecker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 @Slf4j

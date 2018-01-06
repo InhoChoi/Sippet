@@ -19,14 +19,23 @@ function createChartData(data, backgroundColor) {
     };
 }
 
+
 Vue.component('visit-count-chart', {
     extends: VueChartJs.HorizontalBar,
     mixins: [VueChartJs.mixins.reactiveProp],
     mounted() {
         this.renderChart(this.chartData, {
-           categoryPercentage: 1.0,
-           barPercentage: 1.0,
-           legend: {
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                    }
+                }]
+            },
+            categoryPercentage: 1.0,
+            barPercentage: 1.0,
+            legend: {
                 display: false
             },
             responsive: true,
@@ -51,16 +60,8 @@ var app = new Vue({
 
         $.ajax({
             url: "/api/track/group_by_count/path_name",
-            success: function(data){
+            success: function(data) {
                 _this.charData = createChartData(data, '#f87979');
-            }
-        });
-
-        $.ajax({
-            url: "/api/track/count/visitor",
-            success: function(data){
-                _this.totalVisitorCount = data.total;
-                _this.newVisitorCount = data.newVisitor;
             }
         });
     }

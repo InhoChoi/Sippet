@@ -3,8 +3,9 @@ package com.sippet.api;
 import com.sippet.domain.usertrack.UserTrack;
 import com.sippet.domain.usertrack.UserTrackPathNameCount;
 import com.sippet.domain.usertrack.UserTrackRepository;
-import com.sippet.service.TrackingResolver;
-import com.sippet.service.TrackingResult;
+import com.sippet.service.statatis.PathNameCountFinder;
+import com.sippet.service.tracking.TrackingResolver;
+import com.sippet.service.tracking.TrackingResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/track")
 public class UserTrackController {
+    @Autowired
+    private PathNameCountFinder pathNameCountFinder;
+
     @Autowired
     private UserTrackRepository userTrackRepository;
 
@@ -30,7 +34,6 @@ public class UserTrackController {
         final TrackingResult trackingResult = trackingResolver.resolve(newVisistor, trackingId);
 
         bakeTrackingCookie(httpServletResponse, trackingResult);
-
 
         final UserTrack userTrack = UserTrack.builder()
                 .pathName(userTrackDto.getPathName())
@@ -56,14 +59,6 @@ public class UserTrackController {
 
     @GetMapping(path = "/group_by_count/path_name")
     public List<UserTrackPathNameCount> getPathNameCountList() {
-        return userTrackRepository.findCountGroupByPathName();
-    }
-
-    @GetMapping(path = "/count/visitor")
-    public VisitorCount getNewVisitorCount() {
-        return VisitorCount.create(
-                userTrackRepository.findCountTotalVisitor(),
-                userTrackRepository.findCountNewVisitor()
-        );
+        return pathNameCountFinder.findTodayPathNameCount();
     }
 }
