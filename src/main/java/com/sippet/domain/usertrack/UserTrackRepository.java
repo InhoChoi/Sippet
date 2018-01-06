@@ -32,22 +32,23 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
     int findCountTotalVisitor(@Param("start") LocalDateTime start,
                               @Param("end") LocalDateTime end);
 
+    // FIXME: 2018. 1. 6. JPQL에서는 Limit Query를 사용할수가 없음, 다른 방식으로 변경이 필요함
     @Query(value = "SELECT DISTINCT(u.trackingId) " +
             "FROM UserTrack u " +
             "WHERE u.createdAt BETWEEN :start AND :end " +
             "AND u.trackingId > :lastTrackingId " +
             "ORDER BY u.trackingId ASC " +
-            "LIMIT :size")
+            "LIMIT :size ")
     List<String> findTrackingId(@Param("start") LocalDateTime start,
                                 @Param("end") LocalDateTime end,
                                 @Param("lastTrackingId") String lastTrackingId,
-                                @Param("size") int size);
+                                @Param("size") Integer size);
 
     @Query(value = "SELECT MAX(u.createdAt) " +
             "FROM UserTrack u " +
             "WHERE u.trackingId in :trackingIdList " +
             "AND u.createdAt BETWEEN :start AND :end " +
-            "GROUP BY u.trackingId")
+            "GROUP BY u.trackingId ")
     List<LocalDateTime> findLastVisitDateTime(@Param("trackingIdList") List<String> trackingIdList,
                                               @Param("start") LocalDateTime start,
                                               @Param("end") LocalDateTime end);
