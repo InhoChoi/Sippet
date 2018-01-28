@@ -22,12 +22,12 @@ public class CollectorApplication {
         SpringApplication.run(CollectorApplication.class, args);
     }
 
+    final static String queueName = "testMQ";
+
     @Bean
     ConnectionFactory connectionFactory() {
         return new CachingConnectionFactory("localhost", 5672);
     }
-
-    final static String queueName = "testMQ";
 
     @Bean
     Queue queue() {

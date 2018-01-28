@@ -19,14 +19,16 @@ public class ConsumerApplication {
         SpringApplication.run(ConsumerApplication.class, args);
     }
 
+    final static String queueName = "testMQ";
+
     @Bean
     ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("127.0.0.1", 5672);
+        return new CachingConnectionFactory("localhost", 5672);
     }
 
     @Bean
     Queue queue() {
-        return new Queue("testMQ", false);
+        return new Queue(queueName, false);
     }
 
     @Bean
@@ -38,7 +40,7 @@ public class ConsumerApplication {
     public SimpleMessageListenerContainer container() {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory());
-        container.setQueueNames("testMQ");
+        container.setQueueNames(queueName);
         container.setAutoStartup(true);
         container.setConcurrentConsumers(2);
         container.setMessageListener(messageListener());
