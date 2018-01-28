@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
-@Import({SippetDomainConfiguration.class, SippetDasbhaordConfiguration.class})
+@Import({SippetDasbhaordConfiguration.class, SippetDomainConfiguration.class, })
 @SpringBootApplication
 public class SippetApplication {
     public static void main(String[] args) {

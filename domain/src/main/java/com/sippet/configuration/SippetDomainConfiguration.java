@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @EntityScan(
         basePackageClasses = {Jsr310JpaConverters.class, Domains.class})
-@ComponentScan(basePackageClasses = Services.class)
+@ComponentScan(basePackageClasses = {Services.class, Domains.class})
 @Configuration
 public class SippetDomainConfiguration {
 }
