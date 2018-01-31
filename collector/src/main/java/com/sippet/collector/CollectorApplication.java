@@ -1,5 +1,7 @@
 package com.sippet.collector;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -22,36 +24,42 @@ public class CollectorApplication {
         SpringApplication.run(CollectorApplication.class, args);
     }
 
+    private Logger log = LoggerFactory.getLogger(CollectorApplication.class);
     final static String queueName = "testMQ";
 
-    @Bean
-    ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("localhost", 5672);
-    }
-
-    @Bean
-    Queue queue() {
-        return new Queue(queueName, false);
-    }
-
-    @Bean
-    TopicExchange exchange() {
-        return new TopicExchange("spring-boot-exchange");
-    }
-
-    @Bean
-    Binding binding(Queue queue, TopicExchange topicExchange) {
-        return BindingBuilder.bind(queue).to(topicExchange).with(queueName);
-    }
-
-    @Bean
-    AmqpTemplate amqpTemplate() {
-        RabbitTemplate template = new RabbitTemplate();
-        template.setConnectionFactory(connectionFactory());
-        template.setRoutingKey("testMQ");
-        template.setMessageConverter(new SimpleMessageConverter());
-        return template;
-    }
+//    @Bean
+//    ConnectionFactory connectionFactory() {
+//        log.info("connection check");
+//        return new CachingConnectionFactory("localhost", 5672);
+//    }
+//
+//    @Bean
+//    Queue queue() {
+//        log.info("queue check");
+//        return new Queue(queueName, false);
+//    }
+//
+//    @Bean
+//    TopicExchange exchange() {
+//        log.info("exchange check");
+//        return new TopicExchange("spring-boot-exchange");
+//    }
+//
+//    @Bean
+//    Binding binding(Queue queue, TopicExchange topicExchange) {
+//        log.info("binding check");
+//        return BindingBuilder.bind(queue).to(topicExchange).with(queueName);
+//    }
+//
+//    @Bean
+//    AmqpTemplate amqpTemplate() {
+//        log.info("amqpTemplate check");
+//        RabbitTemplate template = new RabbitTemplate();
+//        template.setConnectionFactory(connectionFactory());
+//        template.setRoutingKey("testMQ");
+//        template.setMessageConverter(new SimpleMessageConverter());
+//        return template;
+//    }
 
     @Autowired
     Producer producer;
