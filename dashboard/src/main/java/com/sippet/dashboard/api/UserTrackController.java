@@ -31,7 +31,7 @@ public class UserTrackController {
 
         bakeTrackingCookie(httpServletResponse, trackingResult);
 
-
+        //TODO. 이 부분에서 받ㅇㄴ 정보를 바탕으로 전달해야 함 -> MQ의 Producer 부분에 전달하고 거기에서 Consumer로 다시 전송해서 거기에서 저장.
         final UserTrack userTrack = UserTrack.builder()
                 .pathName(userTrackDto.getPathName())
                 .referrer(userTrackDto.getReferrer())
