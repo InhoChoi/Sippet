@@ -1,5 +1,6 @@
 package com.sippet.consumer;
 
+import com.sippet.domain.util.NullChecker;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -13,10 +14,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MQConsumerConfiguration {
     final static String queueName = "testMQ";
+    private static CachingConnectionFactory consumerCachingConnection;
 
-    @Bean
+    //@Bean
     ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("localhost", 5672);
+        if(NullChecker.check(consumerCachingConnection)) {
+            System.out.println("Consumer connection factory.");
+            consumerCachingConnection = new CachingConnectionFactory("localhost", 5672);
+        }
+        return consumerCachingConnection;
+        //return new CachingConnectionFactory("localhost", 5672);
     }
 
     @Bean

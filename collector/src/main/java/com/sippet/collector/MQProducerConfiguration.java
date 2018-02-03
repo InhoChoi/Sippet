@@ -14,16 +14,17 @@ import org.springframework.context.annotation.Configuration;
 public class MQProducerConfiguration {
     final static String queueName = "testMQ";
 
-    private static CachingConnectionFactory cachingConnectionFactory;
+    private static CachingConnectionFactory producerCachingConnection;
 
     //@Bean
-    public static ConnectionFactory connectionFactory() {
+    private static ConnectionFactory connectionFactory() {
         //return new CachingConnectionFactory("localhost", 5672);
-        if(NullChecker.check(cachingConnectionFactory)) {
-            cachingConnectionFactory = new CachingConnectionFactory("localhost", 5672);
+        if(NullChecker.check(producerCachingConnection)) {
+            System.out.println("Consumer connection factory.");
+            producerCachingConnection = new CachingConnectionFactory("localhost", 5672);
         }
 
-        return cachingConnectionFactory;
+        return producerCachingConnection;
     }
 
     @Bean
