@@ -19,6 +19,7 @@ public class MQProducerConfiguration {
     //@Bean
     private static ConnectionFactory connectionFactory() {
         //return new CachingConnectionFactory("localhost", 5672);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!");
         if(NullChecker.check(producerCachingConnection)) {
             System.out.println("Consumer connection factory.");
             producerCachingConnection = new CachingConnectionFactory("localhost", 5672);
@@ -45,6 +46,7 @@ public class MQProducerConfiguration {
 
 //    @Bean
     public static AmqpTemplate amqpTemplate() {
+        //TODO. Q: 이 template를 클래스 멤버변수로 빼고 private 로 선언해서 재사용하는게 나을까??
         RabbitTemplate template = new RabbitTemplate();
         template.setConnectionFactory(connectionFactory());
         template.setRoutingKey("testMQ");

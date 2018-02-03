@@ -18,6 +18,7 @@ public class MQConsumerConfiguration {
 
     //@Bean
     ConnectionFactory connectionFactory() {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         if(NullChecker.check(consumerCachingConnection)) {
             System.out.println("Consumer connection factory.");
             consumerCachingConnection = new CachingConnectionFactory("localhost", 5672);
