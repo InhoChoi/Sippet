@@ -1,17 +1,8 @@
 package com.sippet.collector;
 
-import com.sippet.domain.util.NullChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.SimpleMessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 @Configuration
 public class Producer {
@@ -66,7 +57,7 @@ public class Producer {
 
     public void sendTo(String routingKey, String message) {
         log.info("전송>>...");
-        RabbitMQConfiguration.amqpTemplate().convertAndSend(routingKey, message);
+        MQProducerConfiguration.amqpTemplate().convertAndSend(routingKey, message);
         //this.rabbitTemplate.convertAndSend(routingKey, message);
     }
 }
