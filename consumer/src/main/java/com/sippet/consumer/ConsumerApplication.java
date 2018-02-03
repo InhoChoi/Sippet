@@ -19,31 +19,31 @@ public class ConsumerApplication {
         SpringApplication.run(ConsumerApplication.class, args);
     }
 
-    final static String queueName = "testMQ";
-
-    @Bean
-    ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("localhost", 5672);
-    }
-
-    @Bean
-    Queue queue() {
-        return new Queue(queueName, false);
-    }
-
-    @Bean
-    MessageListener messageListener() {
-        return new MessageListenerAdapter(new Consumer(), new SimpleMessageConverter());
-    }
-
-    @Bean
-    public SimpleMessageListenerContainer container() {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory());
-        container.setQueueNames(queueName);
-        container.setAutoStartup(true);
-        container.setConcurrentConsumers(2);
-        container.setMessageListener(messageListener());
-        return container;
-    }
+//    final static String queueName = "testMQ";
+//
+//    @Bean
+//    ConnectionFactory connectionFactory() {
+//        return new CachingConnectionFactory("localhost", 5672);
+//    }
+//
+//    @Bean
+//    Queue queue() {
+//        return new Queue(queueName, false);
+//    }
+//
+//    @Bean
+//    MessageListener messageListener() {
+//        return new MessageListenerAdapter(new Consumer(), new SimpleMessageConverter());
+//    }
+//
+//    @Bean
+//    public SimpleMessageListenerContainer container() {
+//        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+//        container.setConnectionFactory(connectionFactory());
+//        container.setQueueNames(queueName);
+//        container.setAutoStartup(true);
+//        container.setConcurrentConsumers(2);
+//        container.setMessageListener(messageListener());
+//        return container;
+//    }
 }
