@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-//@ComponentScan(basePackageClasses = {Domains.class, Consumer.class})
 @Configuration
 public class MQConsumerConfiguration {
     final static String queueName = "trackMQ";
