@@ -1,5 +1,6 @@
 package com.sippet.collector;
 
+import com.sippet.domain.domain.usertrack.UserTrack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -55,9 +56,9 @@ public class Producer {
 //        return template;
 //    }
 
-    public void sendTo(String routingKey, String message) {
+    public static void sendTo(String routingKey, String trackObject) {
         log.info("전송>>...");
-        MQProducerConfiguration.amqpTemplate().convertAndSend(routingKey, message);
+        MQProducerConfiguration.amqpTemplate().convertAndSend(routingKey, trackObject);
         //this.rabbitTemplate.convertAndSend(routingKey, message);
     }
 }

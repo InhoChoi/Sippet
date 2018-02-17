@@ -1,18 +1,15 @@
 package com.sippet.consumer;
 
-import org.springframework.amqp.core.MessageListener;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
-import org.springframework.amqp.support.converter.SimpleMessageConverter;
+import com.sippet.domain.domain.Domains;
+import com.sippet.domain.domain.usertrack.UserTrackRepository;
+import com.sippet.domain.service.Services;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
-@SpringBootApplication
+//@ComponentScan(basePackageClasses = {Domains.class, Consumer.class})
+@SpringBootApplication(scanBasePackages = {"com.sippet.domain", "com.sippet.consumer"})
 @PropertySource("classpath:application-consumer.properties")
 public class ConsumerApplication {
     public static void main(String[] args) {

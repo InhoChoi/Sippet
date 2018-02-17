@@ -1,5 +1,7 @@
 package com.sippet.consumer;
 
+import com.sippet.domain.domain.Domains;
+import com.sippet.domain.domain.usertrack.UserTrackRepository;
 import com.sippet.domain.util.NullChecker;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.core.Queue;
@@ -8,12 +10,15 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.support.converter.SimpleMessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+//@ComponentScan(basePackageClasses = {Domains.class, Consumer.class})
 @Configuration
 public class MQConsumerConfiguration {
-    final static String queueName = "testMQ";
+    final static String queueName = "trackMQ";
     private static CachingConnectionFactory consumerCachingConnection;
 
     //@Bean
@@ -34,6 +39,7 @@ public class MQConsumerConfiguration {
 
     @Bean
     MessageListener messageListener() {
+//        return new MessageListenerAdapter(new Consumer(), new SimpleMessageConverter());
         return new MessageListenerAdapter(new Consumer(), new SimpleMessageConverter());
     }
 
@@ -43,7 +49,7 @@ public class MQConsumerConfiguration {
         container.setConnectionFactory(connectionFactory());
         container.setQueueNames(queueName);
         container.setAutoStartup(true);
-        container.setConcurrentConsumers(2);
+        container.setConcurrentConsumers(1);
         container.setMessageListener(messageListener());
         return container;
     }

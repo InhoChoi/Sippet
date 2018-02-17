@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MQProducerConfiguration {
-    final static String queueName = "testMQ";
+    final static String queueName = "trackMQ";
 
     private static CachingConnectionFactory producerCachingConnection;
 
@@ -49,7 +49,7 @@ public class MQProducerConfiguration {
         //TODO. Q: 이 template를 클래스 멤버변수로 빼고 private 로 선언해서 재사용하는게 나을까??
         RabbitTemplate template = new RabbitTemplate();
         template.setConnectionFactory(connectionFactory());
-        template.setRoutingKey("testMQ");
+        template.setRoutingKey("trackMQ");
         //template.setQueue(queue());
         template.setMessageConverter(new SimpleMessageConverter());
         return template;

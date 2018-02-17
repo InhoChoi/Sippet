@@ -7,7 +7,10 @@ var userTrack = {
 $.ajax({
   type: "POST",
   contentType : "application/json; charset=UTF-8",
-  url: "/api/track/",
+  url: "http://localhost:8083/api/track/",
   data: JSON.stringify(userTrack),
-  dataType: "json"
+  dataType: "json",
+  xhrFields: {
+        withCredentials: true
+    }
 });
