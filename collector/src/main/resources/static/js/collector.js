@@ -3,14 +3,13 @@ var userTrack = {
     href: window.location.href,
     pathName: window.location.pathname,
     referrer: document.referrer
-}
-$.ajax({
-  type: "POST",
-  contentType : "application/json; charset=UTF-8",
-  url: "http://localhost:8083/api/track/",
-  data: JSON.stringify(userTrack),
-  dataType: "json",
-  xhrFields: {
-        withCredentials: true
+};
+
+var TrackLogger = {
+    init: function (url) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", url);
+        xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xmlhttp.send(JSON.stringify(userTrack));
     }
-});
+};
