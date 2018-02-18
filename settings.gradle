@@ -1,1 +1,6 @@
 rootProject.name = 'sippet'
+include 'dashboard'
+include 'domain'
+include 'collector'
+include 'consumer'
+

@@ -1,13 +1,6 @@
 group 'sippet'
 version '0.1-SNAPSHOT'
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 buildscript {
     repositories {
@@ -18,17 +11,23 @@ buildscript {
     }
 }
 
+subprojects {
+    repositories {
+        mavenCentral()
+    }
 
-repositories {
-    mavenCentral()
-}
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
 
-dependencies {
-    compile("org.springframework.boot:spring-boot-devtools")
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.projectlombok:lombok:1.16.16")
-    compile("com.google.guava:guava:23.5-jre")
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
-    compile("mysql:mysql-connector-java")
+    dependencies {
+        compile("org.springframework.boot:spring-boot-devtools")
+        compile("org.projectlombok:lombok:1.16.16")
+        compile("com.google.guava:guava:23.5-jre")
+        compile("mysql:mysql-connector-java")
+    }
 }

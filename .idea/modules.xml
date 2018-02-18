@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/collector.iml" filepath="$PROJECT_DIR$/.idea/modules/collector.iml" group="collector" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/collector/collector_main.iml" filepath="$PROJECT_DIR$/.idea/modules/collector/collector_main.iml" group="collector" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/collector/collector_test.iml" filepath="$PROJECT_DIR$/.idea/modules/collector/collector_test.iml" group="collector" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/consumer.iml" filepath="$PROJECT_DIR$/.idea/modules/consumer.iml" group="consumer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/consumer/consumer_main.iml" filepath="$PROJECT_DIR$/.idea/modules/consumer/consumer_main.iml" group="consumer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/consumer/consumer_test.iml" filepath="$PROJECT_DIR$/.idea/modules/consumer/consumer_test.iml" group="consumer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard.iml" group="dashboard" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard_main.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard_main.iml" group="dashboard" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard/dashboard_test.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard/dashboard_test.iml" group="dashboard" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/domain.iml" group="domain" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/domain_main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/domain_main.iml" group="domain" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/domain_test.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/domain_test.iml" group="domain" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sippet.iml" filepath="$PROJECT_DIR$/.idea/modules/sippet.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sippet_main.iml" filepath="$PROJECT_DIR$/.idea/modules/sippet_main.iml" group="sippet" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sippet_test.iml" filepath="$PROJECT_DIR$/.idea/modules/sippet_test.iml" group="sippet" />
     </modules>
   </component>
 </project>

@@ -5,6 +5,16 @@
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="collector_main" target="1.8" />
+      <module name="collector_test" target="1.8" />
+      <module name="com.sippet.domain_main" target="1.8" />
+      <module name="com.sippet.domain_test" target="1.8" />
+      <module name="consumer_main" target="1.8" />
+      <module name="consumer_test" target="1.8" />
+      <module name="dashboard_main" target="1.8" />
+      <module name="dashboard_test" target="1.8" />
+      <module name="domain_main" target="1.8" />
+      <module name="domain_test" target="1.8" />
       <module name="sippet-domain_main" target="1.8" />
       <module name="sippet-domain_test" target="1.8" />
       <module name="sippet-reciv_main" target="1.8" />
