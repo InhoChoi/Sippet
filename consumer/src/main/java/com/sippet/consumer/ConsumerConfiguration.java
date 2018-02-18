@@ -1,45 +1,39 @@
 package com.sippet.consumer;
 
-import com.sippet.domain.domain.Domains;
-import com.sippet.domain.domain.usertrack.UserTrackRepository;
-import com.sippet.domain.util.NullChecker;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
-import org.springframework.amqp.support.converter.SimpleMessageConverter;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MQConsumerConfiguration {
-    final static String queueName = "trackMQ";
-    private static CachingConnectionFactory consumerCachingConnection;
+public class ConsumerConfiguration {
 
-    //@Bean
-    ConnectionFactory connectionFactory() {
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        if(NullChecker.check(consumerCachingConnection)) {
-            System.out.println("Consumer connection factory.");
-            consumerCachingConnection = new CachingConnectionFactory("localhost", 5672);
-        }
-        return consumerCachingConnection;
-        //return new CachingConnectionFactory("localhost", 5672);
+    private final static String queueName = "track.v1";
+
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        return new CachingConnectionFactory("localhost", 5672);
     }
 
     @Bean
-    Queue queue() {
+    public Queue queue() {
         return new Queue(queueName, false);
     }
 
     @Bean
-    MessageListener messageListener() {
-//        return new MessageListenerAdapter(new Consumer(), new SimpleMessageConverter());
-        return new MessageListenerAdapter(new Consumer(), new SimpleMessageConverter());
+    public UserTrackConsumer userTrackConsumer() {
+        return new UserTrackConsumer();
+    }
+
+    @Bean
+    public MessageListener messageListener() {
+        return new MessageListenerAdapter(userTrackConsumer(), new Jackson2JsonMessageConverter());
     }
 
     @Bean

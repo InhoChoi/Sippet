@@ -1,11 +1,13 @@
 package com.sippet.consumer;
 
+import com.sippet.domain.configuration.SippetDomainConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 
-//@ComponentScan(basePackageClasses = {Domains.class, Consumer.class})
-@SpringBootApplication(scanBasePackages = {"com.sippet.domain", "com.sippet.consumer"})
+@SpringBootApplication
+@Import(SippetDomainConfiguration.class)
 @PropertySource("classpath:application-consumer.properties")
 public class ConsumerApplication {
     public static void main(String[] args) {

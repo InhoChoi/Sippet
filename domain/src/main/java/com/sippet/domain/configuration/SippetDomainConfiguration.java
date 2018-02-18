@@ -3,6 +3,7 @@ package com.sippet.domain.configuration;
 import com.sippet.domain.domain.Domains;
 import com.sippet.domain.service.Services;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
