@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-class UserTrackDto {
+class UserTrackRequest {
     private String host;
 
     private String href;
