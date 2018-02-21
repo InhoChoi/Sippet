@@ -19,6 +19,7 @@ public class UserTrackConsumer {
         final UserTrack userTrack = UserTrack.builder()
                 .host(userTrackDto.getHost())
                 .href(userTrackDto.getHref())
+                .referrer(userTrackDto.getReferrer())
                 .pathName(userTrackDto.getPathName())
                 .newVisitor(userTrackDto.getNewVisitor())
                 .trackingId(userTrackDto.getTrackingId())

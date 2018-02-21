@@ -4,6 +4,7 @@ var userTrack = {
     pathName: window.location.pathname,
     referrer: document.referrer
 }
+
 $.ajax({
   type: "POST",
   contentType : "application/json; charset=UTF-8",
