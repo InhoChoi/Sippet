@@ -8,17 +8,26 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ConsumerConfiguration {
 
-    private final static String queueName = "track.v1";
+//    private final static String queueName = "track.v1";
+    @Value("${queue.name}")
+    private String queueName;
+
+    @Value("${spring.rabbitmq.host}")
+    private String host;
+
+    @Value("${spring.rabbitmq.port}")
+    private int port;
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("localhost", 5672);
+        return new CachingConnectionFactory(host, port);
     }
 
     @Bean
