@@ -5,12 +5,11 @@ var userTrack = {
     referrer: document.referrer
 }
 
-function xmlPost() {
+function xmlPost(url) {
+    var postUrl = url;
     var xhr = new XMLHttpRequest();
 
-    xhr.open("POST", 'http://localhost:8083/api/track/', true);
+    xhr.open("POST", postUrl, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     xhr.send(JSON.stringify(userTrack));
 }
-
-xmlPost();

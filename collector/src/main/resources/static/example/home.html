@@ -5,23 +5,30 @@
 <a href="http://localhost:8083/example/purchase.html">purchase</a>
 
 <!--<script type="text/javascript" src="/js/collector.js"></script>-->
-<script type="text/javascript">
-    var userTrack = {
-        host: window.location.host,
-        href: window.location.href,
-        pathName: window.location.pathname,
-        referrer: document.referrer
-    }
+<!--<script type="text/javascript">-->
+    <!--xmlPost('http://localhost:8083/api/track/');-->
+<!--</script>-->
 
-    function xmlPost(url) {
-        console.log("test xmlPost");
-        var postUrl = url;
-        var xhr = new XMLHttpRequest();
-
-        xhr.open("POST", postUrl, true);
-        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-        xhr.send(JSON.stringify(userTrack));
-    }
-    xmlPost('http://localhost:8083/api/track/');
+<script>
+    (function () {
+        var url = 'http://localhost:8083/api/track/';
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        if (script.readyState) {
+            script.onreadystatechange = function () {
+                if (script.readyState == "loaded" || script.readyState == "complete") {
+                    script.onreadystatechange = null;
+                    xmlPost(url);
+                }
+            }
+        } else {
+            script.onload = function () {
+                xmlPost(url);
+            }
+        }
+        script.src = "/js/collector.js";
+        document.getElementsByTagName("head")[0].appendChild(script)
+    })();
 </script>
+
 </body>
