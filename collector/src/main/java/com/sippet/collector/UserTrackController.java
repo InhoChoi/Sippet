@@ -1,7 +1,5 @@
 package com.sippet.collector;
 
-import com.sippet.domain.domain.usertrack.UserTrack;
-import com.sippet.domain.domain.usertrack.UserTrackDto;
 import com.sippet.domain.service.TrackingResolver;
 import com.sippet.domain.service.TrackingResult;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 @Slf4j
 @CrossOrigin(origins = "*")

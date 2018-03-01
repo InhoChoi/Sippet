@@ -13,8 +13,6 @@ import java.net.URISyntaxException;
 @Slf4j
 @Service
 public class UserTrackProducer {
-//    private String referrer_host = "";
-//    private String referrer_path = "";
 
     @Autowired
     private AmqpTemplate amqpTemplate;
