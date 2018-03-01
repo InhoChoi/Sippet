@@ -48,7 +48,6 @@ public class UserTrackController {
 
         final UserTrackDto userTrack = UserTrackDto.builder()
                 .pathName(userTrackRequest.getPathName())
-//                .referrer(userTrackRequest.getReferrer())
                 .referrer_host(referrer_host)
                 .referrer_path(referrer_path)
                 .href(userTrackRequest.getHref())

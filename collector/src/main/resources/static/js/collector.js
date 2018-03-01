@@ -12,4 +12,6 @@ function xmlPost(url) {
     xhr.open("POST", postUrl, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     xhr.send(JSON.stringify(userTrack));
+
+    console.log(userTrack.referrer);
 }

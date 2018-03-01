@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ConsumerConfiguration {
 
-//    private final static String queueName = "track.v1";
     @Value("${queue.name}")
     private String queueName;
 

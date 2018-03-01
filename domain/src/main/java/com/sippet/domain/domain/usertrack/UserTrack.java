@@ -23,8 +23,6 @@ public class UserTrack {
 
     private String pathName;
 
-//    private String referrer;
-
     private String referrer_host;
 
     private String referrer_path;
