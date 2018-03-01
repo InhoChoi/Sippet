@@ -34,7 +34,6 @@ public class UserTrackController {
         final TrackingResult trackingResult = trackingResolver.resolve(newVisistor, trackingId);
         bakeTrackingCookie(httpServletResponse, trackingResult);
 
-        userTrackProducer.divideReferrer(userTrackRequest);
         userTrackProducer.produce(userTrackRequest, trackingResult);
     }
 

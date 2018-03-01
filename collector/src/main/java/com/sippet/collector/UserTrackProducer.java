@@ -13,25 +13,27 @@ import java.net.URISyntaxException;
 @Slf4j
 @Service
 public class UserTrackProducer {
-    private String referrer_host = "";
-    private String referrer_path = "";
+//    private String referrer_host = "";
+//    private String referrer_path = "";
 
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    public void divideReferrer(UserTrackRequest userTrackRequest) {
+    public String divideReferrer(UserTrackRequest userTrackRequest) {
+        String path = "";
         try {
-            referrer_host = String.valueOf(
-                    new URI(userTrackRequest.getReferrer()
-                            .substring(0, userTrackRequest.getReferrer().length()
-                                    - new URI(userTrackRequest.getReferrer()).getPath().length())));
-            referrer_path = new URI(userTrackRequest.getReferrer()).getPath();
+            path =  new URI(userTrackRequest.getReferrer()).getPath();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        return path;
     }
 
     public void produce(UserTrackRequest userTrackRequest, TrackingResult trackingResult) {
+        String referrer_path = divideReferrer(userTrackRequest);
+        String referrer_host = userTrackRequest.getReferrer()
+                            .substring(0, userTrackRequest.getReferrer().length() - referrer_path.length());
+
         final UserTrackDto userTrackDto = UserTrackDto.builder()
                 .pathName(userTrackRequest.getPathName())
                 .referrer_host(referrer_host)
