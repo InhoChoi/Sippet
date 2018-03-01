@@ -34,29 +34,8 @@ public class UserTrackController {
         final TrackingResult trackingResult = trackingResolver.resolve(newVisistor, trackingId);
         bakeTrackingCookie(httpServletResponse, trackingResult);
 
-        String referrer_host = "";
-        String referrer_path = "";
-        try {
-            referrer_host = String.valueOf(
-                    new URI(userTrackRequest.getReferrer()
-                            .substring(0, userTrackRequest.getReferrer().length()
-                                    - new URI(userTrackRequest.getReferrer()).getPath().length())));
-            referrer_path = new URI(userTrackRequest.getReferrer()).getPath();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        final UserTrackDto userTrack = UserTrackDto.builder()
-                .pathName(userTrackRequest.getPathName())
-                .referrer_host(referrer_host)
-                .referrer_path(referrer_path)
-                .href(userTrackRequest.getHref())
-                .host(userTrackRequest.getHost())
-                .trackingId(trackingResult.getTrackingId())
-                .newVisitor(trackingResult.getNewVisitor())
-                .build();
-
-        userTrackProducer.produce(userTrack);
+        userTrackProducer.divideReferrer(userTrackRequest);
+        userTrackProducer.produce(userTrackRequest, trackingResult);
     }
 
     private void bakeTrackingCookie(HttpServletResponse httpServletResponse, TrackingResult trackingResult) {
