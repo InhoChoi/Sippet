@@ -3,4 +3,29 @@
 <a href="http://localhost:8083/example/home.html">home</a>
 <a href="http://localhost:8083/example/index.html">index</a>
 
-<script type="text/javascript" src="/js/collector.js"></script>
+<!--<script type="text/javascript" src="/js/collector.js"></script>-->
+<!--<script type="text/javascript">-->
+    <!--xmlPost('http://localhost:8083/api/track/');-->
+<!--</script>-->
+
+<script>
+    (function () {
+        var url = 'http://localhost:8083/api/track/';
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        if (script.readyState) {
+            script.onreadystatechange = function () {
+                if (script.readyState == "loaded" || script.readyState == "complete") {
+                    script.onreadystatechange = null;
+                    xmlPost(url);
+                }
+            }
+        } else {
+            script.onload = function () {
+                xmlPost(url);
+            }
+        }
+        script.src = "/js/collector.js";
+        document.getElementsByTagName("head")[0].appendChild(script)
+    })();
+</script>

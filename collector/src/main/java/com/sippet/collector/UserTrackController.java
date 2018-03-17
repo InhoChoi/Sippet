@@ -1,7 +1,5 @@
 package com.sippet.collector;
 
-import com.sippet.domain.domain.usertrack.UserTrack;
-import com.sippet.domain.domain.usertrack.UserTrackDto;
 import com.sippet.domain.service.TrackingResolver;
 import com.sippet.domain.service.TrackingResult;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +18,7 @@ public class UserTrackController {
     private TrackingResolver trackingResolver;
 
     @Autowired
-    private UserTrackProducer userTrackProducer;
+    private UserTrackSender userTrackSender;
 
     @PostMapping(path = "/")
     public void addTrack(@RequestBody UserTrackRequest userTrackRequest,
@@ -30,16 +28,7 @@ public class UserTrackController {
         final TrackingResult trackingResult = trackingResolver.resolve(newVisistor, trackingId);
         bakeTrackingCookie(httpServletResponse, trackingResult);
 
-        final UserTrackDto userTrack = UserTrackDto.builder()
-                .pathName(userTrackRequest.getPathName())
-                .referrer(userTrackRequest.getReferrer())
-                .href(userTrackRequest.getHref())
-                .host(userTrackRequest.getHost())
-                .trackingId(trackingResult.getTrackingId())
-                .newVisitor(trackingResult.getNewVisitor())
-                .build();
-
-        userTrackProducer.produce(userTrack);
+        userTrackSender.send(userTrackRequest, trackingResult);
     }
 
     private void bakeTrackingCookie(HttpServletResponse httpServletResponse, TrackingResult trackingResult) {
