@@ -18,7 +18,7 @@ public class UserTrackController {
     private TrackingResolver trackingResolver;
 
     @Autowired
-    private UserTrackProducer userTrackProducer;
+    private UserTrackSender userTrackSender;
 
     @PostMapping(path = "/")
     public void addTrack(@RequestBody UserTrackRequest userTrackRequest,
@@ -28,7 +28,7 @@ public class UserTrackController {
         final TrackingResult trackingResult = trackingResolver.resolve(newVisistor, trackingId);
         bakeTrackingCookie(httpServletResponse, trackingResult);
 
-        userTrackProducer.produce(userTrackRequest, trackingResult);
+        userTrackSender.send(userTrackRequest, trackingResult);
     }
 
     private void bakeTrackingCookie(HttpServletResponse httpServletResponse, TrackingResult trackingResult) {

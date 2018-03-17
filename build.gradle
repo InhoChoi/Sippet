@@ -29,5 +29,6 @@ subprojects {
         compile("org.projectlombok:lombok:1.16.16")
         compile("com.google.guava:guava:23.5-jre")
         compile("mysql:mysql-connector-java")
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
     }
 }
