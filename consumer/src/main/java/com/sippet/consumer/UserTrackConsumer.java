@@ -3,6 +3,7 @@ package com.sippet.consumer;
 import com.sippet.domain.domain.usertrack.UserTrack;
 import com.sippet.domain.domain.usertrack.UserTrackDto;
 import com.sippet.domain.domain.usertrack.UserTrackRepository;
+import com.sippet.domain.service.RetentionPeriod;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 public class UserTrackConsumer {
     @Autowired
     private UserTrackRepository userTrackRepository;
+
+//    @Autowired
+//    private RetentionPeriod retentionPeriod;
 
     public void handleMessage(UserTrackDto userTrackDto) {
         log.info("Message : {} ", userTrackDto);
@@ -25,6 +29,8 @@ public class UserTrackConsumer {
                 .newVisitor(userTrackDto.getNewVisitor())
                 .trackingId(userTrackDto.getTrackingId())
                 .build();
+        RetentionPeriod retentionPeriod = new RetentionPeriod();
+        retentionPeriod.produce(userTrack.getTrackingId());
 
         userTrackRepository.save(userTrack);
     }
