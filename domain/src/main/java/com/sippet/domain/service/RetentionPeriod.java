@@ -56,11 +56,13 @@ public class RetentionPeriod {
      *
      * @return
      */
-//    public Long produce(String trackingId) {
+//    public Long produce(RetentionPeriodRepository repository, String trackingId) {
+    public Long produce(String trackingId) {
 //        if(checkValid(repository.getLatestDate(trackingId), repository.getTodayDate(trackingId))){
-////            return calculate();
 //            log.info("This tracking id's retention period is valid.");
+//            return calculate();
 //        }
-//        return 0L;
-//    }
+        log.info("After if area.");
+        return 0L;
+    }
 }

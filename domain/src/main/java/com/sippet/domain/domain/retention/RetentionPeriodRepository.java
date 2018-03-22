@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @Repository
 public interface RetentionPeriodRepository extends JpaRepository<RetentionPeriod, Long>{
 
-//    @Query(value = "Select createdAt from UserTrack where trackingId = :trackingId")
-//    LocalDateTime getLatestDate(String trackingId);
-//
-//    @Query(value = "Select createdAt from UserTrack where trackingId = :trackingId")
-//    LocalDateTime getTodayDate(String trackingId);
+    @Query(value = "Select createdAt from UserTrack where trackingId = :trackingId")
+    LocalDateTime getLatestDate(String trackingId);
+
+    @Query(value = "Select createdAt from UserTrack where trackingId = :trackingId")
+    LocalDateTime getTodayDate(String trackingId);
 }
