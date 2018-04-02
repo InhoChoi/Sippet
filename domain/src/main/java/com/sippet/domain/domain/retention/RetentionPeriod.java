@@ -23,4 +23,6 @@ public class RetentionPeriod {
     private String trackingId;
 
     private Long retentionPeriod;
+
+    private int valid;
 }

@@ -23,10 +23,5 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
     //@Query(value = "Select u.createdAt from UserTrack u where u.trackingId = :trackingId order by u.id DESC")
     //LocalDateTime getLatestDate(@Param(value = "trackingId") String trackingId);
 
-
-//    List<UserTrack> findTopByOrderByTrackingIdDesc(String trackingId);
-//    UserTrack findTopByOrderByTrackingIdDesc(String trackingId);
-//    @Query(value = "SELECT u.trackingId, u.createdAt FROM UserTrack u " +
-//            "WHERE u.trackingId = :trackingId ORDER BY id DESC LIMIT 1")
     UserTrack findTopByTrackingIdOrderByIdDesc(@Param(value = "trackingId") String trackingId);
 }

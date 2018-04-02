@@ -51,20 +51,24 @@ public class PeriodCalculator {
      * @return
      */
     public RetentionPeriod produce(UserTrackRepository repository, String trackingId) {
+        //TODO. 만약 UserTrack 테이블에 해당 trackingID의 데이터가 없으면 어떻게 할 것인지.
+        //TODO. 그리고 정책을 정해야 할듯. 기간이 유효하지 않으면(30일이 넘으면) 저장할 것인지, 무시할 것인지, 다르게 저장할 것인지 등.
+        final Long validPeriod =
+                calculate(repository.findTopByTrackingIdOrderByIdDesc(trackingId).getCreatedAt(), getToady());
 
-        UserTrack userTrack = repository.findTopByTrackingIdOrderByIdDesc(trackingId);
-
-        log.info("User Track Is : {}", userTrack);
-        if(checkValid(repository.findTopByTrackingIdOrderByIdDesc(trackingId).getCreatedAt(), getToady())){
-            final Long validPeriod =
-                    calculate(repository.findTopByTrackingIdOrderByIdDesc(trackingId).getCreatedAt(), getToady());
+        if(validPeriod <= 30){
             log.info("This tracking id's retention period is valid.");
 
             return new RetentionPeriod().builder()
                     .trackingId(trackingId)
                     .retentionPeriod(validPeriod)
+                    .valid(1)
                     .build();
         }
-        return null;
+        return new RetentionPeriod().builder()
+                .trackingId(trackingId)
+                .retentionPeriod(validPeriod)
+                .valid(0)
+                .build();
     }
 }
