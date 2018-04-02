@@ -9,13 +9,14 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Builder
+@Table(name = "retention_period")
 @EntityListeners(AuditingEntityListener.class)
 public class RetentionPeriod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tracking_id;
+    private String trackingId;
 
-    private Long retention_period;
+    private Long retentionPeriod;
 }

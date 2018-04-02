@@ -1,11 +1,14 @@
 package com.sippet.domain.service;
 
 import com.sippet.domain.domain.retention.RetentionPeriodRepository;
+import com.sippet.domain.domain.usertrack.UserTrack;
+import com.sippet.domain.domain.usertrack.UserTrackRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -17,7 +20,17 @@ public class RetentionPeriod {
 //    private RetentionPeriodRepository repository;
 
     /**
+     * Get today date
+     *
+     * @return today date
+     */
+    private LocalDateTime getToady() {
+        return LocalDateTime.now();
+    }
+
+    /**
      * Calculate to get between period of two dates
+     *
      * @param latestDate
      * @param todayDate
      * @return between period of two date
@@ -28,41 +41,31 @@ public class RetentionPeriod {
 
     /**
      * Check difference of two dates were over month or not
+     *
      * @param latestDate
      * @param todayDate
      * @return {@code true}, if two dates difference was less than month
      */
     private boolean checkValid(LocalDateTime latestDate, LocalDateTime todayDate) {
-        return DAYS.between(todayDate.toLocalDate(), latestDate.toLocalDate()) > 30;
+        return DAYS.between(todayDate.toLocalDate(), latestDate.toLocalDate()) <= 30;
     }
 
-//    /**
-//     * Get latest date of tracking id
-//     * @return latest date
-//     */
-//    private LocalDateTime getLatest() {
-//        return ;
-//    }
-//
-//    /**
-//     * Get today date of tracking id
-//     * @return today date
-//     */
-//    private LocalDateTime getToday() {
-//        return ;
-//    }
-
     /**
-     *
      * @return
      */
 //    public Long produce(RetentionPeriodRepository repository, String trackingId) {
-    public Long produce(String trackingId) {
-//        if(checkValid(repository.getLatestDate(trackingId), repository.getTodayDate(trackingId))){
+    public void produce(UserTrackRepository repository, String trackingId) {
+
+//        List<UserTrack> userTrack = repository.findTopByOrderByTrackingIdDesc(trackingId);
+        UserTrack userTrack = repository.findTopByTrackingIdOrderByIdDesc(trackingId);
+
+        log.info("User Track Is : {}", userTrack);
+//        if(checkValid(repository.getLatestDate(trackingId), getToady())){
 //            log.info("This tracking id's retention period is valid.");
-//            return calculate();
+//            log.info("" + calculate(repository.getLatestDate(trackingId), getToady()));
 //        }
+
         log.info("After if area.");
-        return 0L;
+//        return 0L;
     }
 }

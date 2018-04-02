@@ -34,8 +34,8 @@ public class UserTrackConsumer {
                 .trackingId(userTrackDto.getTrackingId())
                 .build();
 //        RetentionPeriod retentionPeriod = new RetentionPeriod();
-        retentionPeriod.produce(userTrack.getTrackingId());
 
         userTrackRepository.save(userTrack);
+        retentionPeriod.produce(userTrackRepository, userTrack.getTrackingId());
     }
 }
