@@ -1,5 +1,6 @@
 package com.sippet.domain.service;
 
+import com.sippet.domain.domain.retention.RetentionPeriod;
 import com.sippet.domain.domain.retention.RetentionPeriodRepository;
 import com.sippet.domain.domain.usertrack.UserTrack;
 import com.sippet.domain.domain.usertrack.UserTrackRepository;
@@ -14,11 +15,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 @Slf4j
 @Service
-public class RetentionPeriod {
-    //TODO. 이 autowired가 에러를 발생한다 -> RetentionPeriodRepository를 찾을 수 없다나..
-//    @Autowired
-//    private RetentionPeriodRepository repository;
-
+public class PeriodCalculator {
     /**
      * Get today date
      *
@@ -53,19 +50,21 @@ public class RetentionPeriod {
     /**
      * @return
      */
-//    public Long produce(RetentionPeriodRepository repository, String trackingId) {
-    public void produce(UserTrackRepository repository, String trackingId) {
+    public RetentionPeriod produce(UserTrackRepository repository, String trackingId) {
 
-//        List<UserTrack> userTrack = repository.findTopByOrderByTrackingIdDesc(trackingId);
         UserTrack userTrack = repository.findTopByTrackingIdOrderByIdDesc(trackingId);
 
         log.info("User Track Is : {}", userTrack);
-//        if(checkValid(repository.getLatestDate(trackingId), getToady())){
-//            log.info("This tracking id's retention period is valid.");
-//            log.info("" + calculate(repository.getLatestDate(trackingId), getToady()));
-//        }
+        if(checkValid(repository.findTopByTrackingIdOrderByIdDesc(trackingId).getCreatedAt(), getToady())){
+            final Long validPeriod =
+                    calculate(repository.findTopByTrackingIdOrderByIdDesc(trackingId).getCreatedAt(), getToady());
+            log.info("This tracking id's retention period is valid.");
 
-        log.info("After if area.");
-//        return 0L;
+            return new RetentionPeriod().builder()
+                    .trackingId(trackingId)
+                    .retentionPeriod(validPeriod)
+                    .build();
+        }
+        return null;
     }
 }

@@ -4,7 +4,7 @@ import com.sippet.domain.domain.retention.RetentionPeriodRepository;
 import com.sippet.domain.domain.usertrack.UserTrack;
 import com.sippet.domain.domain.usertrack.UserTrackDto;
 import com.sippet.domain.domain.usertrack.UserTrackRepository;
-import com.sippet.domain.service.RetentionPeriod;
+import com.sippet.domain.service.PeriodCalculator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +16,10 @@ public class UserTrackConsumer {
     private UserTrackRepository userTrackRepository;
 
     @Autowired
-    private RetentionPeriod retentionPeriod;
+    private PeriodCalculator periodCalculator;
 
     @Autowired
-    private RetentionPeriodRepository repository;
+    private RetentionPeriodRepository retentionPeriodRepository;
 
     public void handleMessage(UserTrackDto userTrackDto) {
         log.info("Message : {} ", userTrackDto);
@@ -33,9 +33,8 @@ public class UserTrackConsumer {
                 .newVisitor(userTrackDto.getNewVisitor())
                 .trackingId(userTrackDto.getTrackingId())
                 .build();
-//        RetentionPeriod retentionPeriod = new RetentionPeriod();
 
         userTrackRepository.save(userTrack);
-        retentionPeriod.produce(userTrackRepository, userTrack.getTrackingId());
+        retentionPeriodRepository.save(periodCalculator.produce(userTrackRepository, userTrack.getTrackingId()));
     }
 }
