@@ -6,6 +6,7 @@ import com.sippet.domain.domain.usertrack.UserTrack;
 import com.sippet.domain.domain.usertrack.UserTrackRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,13 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Slf4j
 @Service
 public class PeriodCalculator {
+
+//    @Autowired
+//    RetentionPeriodRepository retentionRepository;
+
+    @Value("${period.invalid}")
+    private Long invalidPeriod;
+
     /**
      * Get today date
      *
@@ -33,6 +41,7 @@ public class PeriodCalculator {
      * @return between period of two date
      */
     private Long calculate(LocalDateTime latestDate, LocalDateTime todayDate) {
+//        System.out.println(latestDate.minus(todayDate));
         return DAYS.between(todayDate.toLocalDate(), latestDate.toLocalDate());
     }
 
@@ -50,11 +59,21 @@ public class PeriodCalculator {
     /**
      * @return
      */
-    public RetentionPeriod produce(UserTrackRepository repository, String trackingId) {
-        //TODO. 만약 UserTrack 테이블에 해당 trackingID의 데이터가 없으면 어떻게 할 것인지.
+    public RetentionPeriod produce(UserTrackRepository userTrackRepo, RetentionPeriodRepository retentionRepo, String trackingId) {
+        //TODO. 만약 UserTrack 테이블에 해당 trackingID의 데이터가 없으면 어떻게 할 것인지 => 쿠키가 뉴유저인지 아닌지로 판별하면 될듯.
+        //TODO. 캐시가 필요할듯. 이 매서드 들어올때마다 디비로 접근해서 뉴유저 판별하면 너무 자원소모가 크다.
+        //TODO. 그리고 뉴유저면 초기 날짜를 어떻게 할건지. => 0일로 초기화?
         //TODO. 그리고 정책을 정해야 할듯. 기간이 유효하지 않으면(30일이 넘으면) 저장할 것인지, 무시할 것인지, 다르게 저장할 것인지 등.
-        final Long validPeriod =
-                calculate(repository.findTopByTrackingIdOrderByIdDesc(trackingId).getCreatedAt(), getToady());
+        //TODO. 그리고 질문 2가지 -> 1. 여기 위에 autowired로 repository들을 추가하면 빈이 없다고 에러가 난다.
+        //TODO. 2. 아래 데이터 유무 체크 부분을 좀더 잘 고칠수 없을까?
+
+        Long validPeriod = 0L;
+
+        if(retentionRepo.checkDataExist(trackingId) > 0) {
+            System.out.println("Data is exist!!");
+            validPeriod =
+                    calculate(userTrackRepo.findTopByTrackingIdOrderByIdDesc(trackingId).getCreatedAt(), getToady());
+        }
 
         if(validPeriod <= 30){
             log.info("This tracking id's retention period is valid.");
@@ -67,7 +86,7 @@ public class PeriodCalculator {
         }
         return new RetentionPeriod().builder()
                 .trackingId(trackingId)
-                .retentionPeriod(validPeriod)
+                .retentionPeriod(invalidPeriod)
                 .valid(0)
                 .build();
     }

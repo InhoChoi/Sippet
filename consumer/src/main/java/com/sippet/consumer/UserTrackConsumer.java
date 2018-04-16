@@ -35,6 +35,7 @@ public class UserTrackConsumer {
                 .build();
 
         userTrackRepository.save(userTrack);
-        retentionPeriodRepository.save(periodCalculator.produce(userTrackRepository, userTrack.getTrackingId()));
+        retentionPeriodRepository
+                .save(periodCalculator.produce(userTrackRepository, retentionPeriodRepository, userTrack.getTrackingId()));
     }
 }
