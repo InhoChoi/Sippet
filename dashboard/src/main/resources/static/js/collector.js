@@ -3,7 +3,7 @@ var userTrack = {
     href: window.location.href,
     pathName: window.location.pathname,
     referrer: document.referrer
-}
+};
 
 function xmlPost(url) {
     var postUrl = url;

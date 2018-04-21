@@ -1,16 +1,11 @@
 <p>purchase.html</p>
 
-<a href="http://localhost:8083/example/home.html">home</a>
-<a href="http://localhost:8083/example/index.html">index</a>
-
-<!--<script type="text/javascript" src="/js/collector.js"></script>-->
-<!--<script type="text/javascript">-->
-    <!--xmlPost('http://localhost:8083/api/track/');-->
-<!--</script>-->
+<a href="/example/home.html">home</a>
+<a href="/example/index.html">index</a>
 
 <script>
-    (function () {
-        var url = 'http://localhost:8083/api/track/';
+    (function (baseUrl) {
+        var url = baseUrl + '/api/track/';
         var script = document.createElement("script");
         script.type = "text/javascript";
         if (script.readyState) {
@@ -27,5 +22,5 @@
         }
         script.src = "/js/collector.js";
         document.getElementsByTagName("head")[0].appendChild(script)
-    })();
+    })("http://localhost:8083");
 </script>

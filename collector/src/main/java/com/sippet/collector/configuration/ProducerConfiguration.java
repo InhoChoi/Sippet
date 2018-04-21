@@ -1,4 +1,4 @@
-package com.sippet.collector;
+package com.sippet.collector.configuration;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;

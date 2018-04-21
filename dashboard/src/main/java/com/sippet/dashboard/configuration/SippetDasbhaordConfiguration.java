@@ -1,11 +1,11 @@
 package com.sippet.dashboard.configuration;
 
-import com.sippet.dashboard.api.Apis;
-import com.sippet.dashboard.web.Webs;
+import com.sippet.dashboard.api.DashboardApis;
+import com.sippet.dashboard.web.DashboardWebs;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackageClasses = {Apis.class, Webs.class})
+@ComponentScan(basePackageClasses = {DashboardApis.class, DashboardWebs.class})
 public class SippetDasbhaordConfiguration {
 }

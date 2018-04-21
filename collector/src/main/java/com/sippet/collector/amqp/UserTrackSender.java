@@ -1,6 +1,7 @@
-package com.sippet.collector;
+package com.sippet.collector.amqp;
 
-import com.sippet.domain.service.TrackingResult;
+import com.sippet.collector.api.UserTrackRequest;
+import com.sippet.domain.service.trakcing.TrackingResult;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -18,7 +19,7 @@ public class UserTrackSender {
     @Autowired
     private UserTrackDtoConverter userTrackDtoConverter;
 
-    void send(UserTrackRequest userTrackRequest, TrackingResult trackingResult) {
+    public void send(UserTrackRequest userTrackRequest, TrackingResult trackingResult) {
         amqpTemplate.convertAndSend(userTrackDtoConverter.convert(userTrackRequest, trackingResult));
     }
 }

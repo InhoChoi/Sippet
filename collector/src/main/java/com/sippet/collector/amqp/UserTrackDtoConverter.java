@@ -1,14 +1,14 @@
-package com.sippet.collector;
+package com.sippet.collector.amqp;
 
+import com.sippet.collector.api.UserTrackRequest;
 import com.sippet.domain.domain.usertrack.UserTrackDto;
-import com.sippet.domain.service.TrackingResult;
+import com.sippet.domain.service.trakcing.TrackingResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
 
 @Slf4j
 @Service

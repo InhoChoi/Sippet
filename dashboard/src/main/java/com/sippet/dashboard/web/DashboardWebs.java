@@ -1,4 +1,4 @@
 package com.sippet.dashboard.web;
 
-public interface Webs {
+public interface DashboardWebs {
 }

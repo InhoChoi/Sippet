@@ -1,7 +1,8 @@
-package com.sippet.collector;
+package com.sippet.collector.api;
 
-import com.sippet.domain.service.TrackingResolver;
-import com.sippet.domain.service.TrackingResult;
+import com.sippet.collector.amqp.UserTrackSender;
+import com.sippet.domain.service.trakcing.TrackingResolver;
+import com.sippet.domain.service.trakcing.TrackingResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

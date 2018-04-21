@@ -1,7 +1,9 @@
 package com.sippet.dashboard.api;
 
-import com.sippet.domain.domain.usertrack.UserTrackPathNameCount;
-import com.sippet.domain.domain.usertrack.UserTrackRepository;
+import com.sippet.domain.service.path.PathCount;
+import com.sippet.domain.service.path.PathCountFinder;
+import com.sippet.domain.service.visitor.VisitorCount;
+import com.sippet.domain.service.visitor.VisitorCountFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,18 +16,18 @@ import java.util.List;
 @RequestMapping("/api/track")
 public class UserTrackController {
     @Autowired
-    private UserTrackRepository userTrackRepository;
+    private VisitorCountFinder visitorCountFinder;
 
-    @GetMapping(path = "/group_by_count/path_name")
-    public List<UserTrackPathNameCount> getPathNameCountList() {
-        return userTrackRepository.findCountGroupByPathName();
+    @Autowired
+    private PathCountFinder pathCountFinder;
+
+    @GetMapping(path = "/path-count/today")
+    public List<PathCount> getPathNameCountList() {
+        return pathCountFinder.findPathTodayCount();
     }
 
-    @GetMapping(path = "/count/visitor")
+    @GetMapping(path = "/visitor-count/today")
     public VisitorCount getNewVisitorCount() {
-        return VisitorCount.create(
-                userTrackRepository.findCountTotalVisitor(),
-                userTrackRepository.findCountNewVisitor()
-        );
+        return visitorCountFinder.findVisitorTodayCount();
     }
 }

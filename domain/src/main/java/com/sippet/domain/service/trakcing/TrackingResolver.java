@@ -1,4 +1,4 @@
-package com.sippet.domain.service;
+package com.sippet.domain.service.trakcing;
 
 import com.sippet.domain.util.NullChecker;
 import lombok.extern.slf4j.Slf4j;
