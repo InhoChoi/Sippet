@@ -18,9 +18,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Service
 public class PeriodCalculator {
 
-//    @Autowired
-//    RetentionPeriodRepository retentionRepository;
-
     @Value("${period.invalid}")
     private Long invalidPeriod;
 
