@@ -34,8 +34,13 @@ public class UserTrackConsumer {
                 .trackingId(userTrackDto.getTrackingId())
                 .build();
 
-        userTrackRepository.save(userTrack);
-        retentionPeriodRepository
-                .save(periodCalculator.produce(userTrackRepository, retentionPeriodRepository, userTrack.getTrackingId()));
+        try {
+            userTrackRepository.save(userTrack);
+            retentionPeriodRepository
+                    .save(periodCalculator.produce(userTrackRepository, retentionPeriodRepository, userTrack.getTrackingId()));
+        } catch (Exception e) {
+            System.err.println("Consumer save is throws null!!");
+            e.printStackTrace();
+        }
     }
 }

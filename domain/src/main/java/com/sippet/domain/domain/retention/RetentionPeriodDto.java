@@ -13,6 +13,4 @@ public class RetentionPeriodDto {
     private String tracking_id;
 
     private Long retention_period;
-
-    private int valid;
 }

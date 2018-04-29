@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -66,10 +67,15 @@ public class PeriodCalculator {
 
         Long validPeriod = 0L;
 
-        if(retentionRepo.checkDataExist(trackingId) > 0) {
-            System.out.println("Data is exist!!");
-            validPeriod =
-                    calculate(userTrackRepo.findTopByTrackingIdOrderByIdDesc(trackingId).getCreatedAt(), getToady());
+//        if(retentionRepo.checkDataExist(trackingId) > 0) {
+//            System.out.println("Data is exist!!");
+//            validPeriod =
+//                    calculate(userTrackRepo.findTopByTrackingIdOrderByIdDesc(trackingId).getCreatedAt(), getToady());
+//        }
+
+        if(retentionRepo.checkTodayDataExist(trackingId, LocalDate.now()) > 0) {
+            System.out.println("Today Data is exist!!");
+            return null;
         }
 
         if(validPeriod <= 30){
@@ -78,13 +84,13 @@ public class PeriodCalculator {
             return new RetentionPeriod().builder()
                     .trackingId(trackingId)
                     .retentionPeriod(validPeriod)
-                    .valid(1)
+                    .eventDate(LocalDate.now())
                     .build();
         }
         return new RetentionPeriod().builder()
                 .trackingId(trackingId)
                 .retentionPeriod(invalidPeriod)
-                .valid(0)
+                .eventDate(LocalDate.now())
                 .build();
     }
 }
