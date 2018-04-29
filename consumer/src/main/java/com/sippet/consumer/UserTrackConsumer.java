@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Slf4j
 @Service
 public class UserTrackConsumer {
@@ -34,13 +36,10 @@ public class UserTrackConsumer {
                 .trackingId(userTrackDto.getTrackingId())
                 .build();
 
-        try {
-            userTrackRepository.save(userTrack);
+        userTrackRepository.save(userTrack);
+        if(retentionPeriodRepository.checkTodayDataExist(userTrack.getTrackingId(), LocalDate.now()) <= 0) {
             retentionPeriodRepository
-                    .save(periodCalculator.produce(userTrackRepository, retentionPeriodRepository, userTrack.getTrackingId()));
-        } catch (Exception e) {
-            System.err.println("Consumer save is throws null!!");
-            e.printStackTrace();
+                    .save(periodCalculator.produce(userTrackRepository, userTrack.getTrackingId()));
         }
     }
 }
