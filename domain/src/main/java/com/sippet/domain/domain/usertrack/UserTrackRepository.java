@@ -2,9 +2,12 @@ package com.sippet.domain.domain.usertrack;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
@@ -16,4 +19,9 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
 
     @Query(value = "SELECT COUNT(DISTINCT u.trackingId) FROM UserTrack u")
     int findCountTotalVisitor();
+
+    //@Query(value = "Select u.createdAt from UserTrack u where u.trackingId = :trackingId order by u.id DESC")
+    //LocalDateTime getLatestDate(@Param(value = "trackingId") String trackingId);
+
+    UserTrack findTopByTrackingIdOrderByIdDesc(@Param(value = "trackingId") String trackingId);
 }

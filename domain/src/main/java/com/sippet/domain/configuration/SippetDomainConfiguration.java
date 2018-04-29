@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaAuditing
 @EnableJpaRepositories(basePackageClasses = {Domains.class})
+//@EnableJpaRepositories(basePackages = "com.sippet.domain.domain.retention")
 @EntityScan(
         basePackageClasses = {Jsr310JpaConverters.class, Domains.class})
 @ComponentScan(basePackageClasses = {Services.class, Domains.class})

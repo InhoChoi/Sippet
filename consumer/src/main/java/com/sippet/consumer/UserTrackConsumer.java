@@ -1,17 +1,27 @@
 package com.sippet.consumer;
 
+import com.sippet.domain.domain.retention.RetentionPeriodRepository;
 import com.sippet.domain.domain.usertrack.UserTrack;
 import com.sippet.domain.domain.usertrack.UserTrackDto;
 import com.sippet.domain.domain.usertrack.UserTrackRepository;
+import com.sippet.domain.service.PeriodCalculator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 @Slf4j
 @Service
 public class UserTrackConsumer {
     @Autowired
     private UserTrackRepository userTrackRepository;
+
+    @Autowired
+    private PeriodCalculator periodCalculator;
+
+    @Autowired
+    private RetentionPeriodRepository retentionPeriodRepository;
 
     public void handleMessage(UserTrackDto userTrackDto) {
         log.info("Message : {} ", userTrackDto);
@@ -27,5 +37,9 @@ public class UserTrackConsumer {
                 .build();
 
         userTrackRepository.save(userTrack);
+        if(retentionPeriodRepository.checkTodayDataExist(userTrack.getTrackingId(), LocalDate.now()) <= 0) {
+            retentionPeriodRepository
+                    .save(periodCalculator.produce(userTrackRepository, userTrack.getTrackingId()));
+        }
     }
 }
