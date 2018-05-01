@@ -36,10 +36,9 @@ public class UserTrackConsumer {
                 .trackingId(userTrackDto.getTrackingId())
                 .build();
 
-        userTrackRepository.save(userTrack);
         if(retentionPeriodRepository.checkTodayDataExist(userTrack.getTrackingId(), LocalDate.now()) <= 0) {
-            retentionPeriodRepository
-                    .save(periodCalculator.produce(userTrackRepository, userTrack.getTrackingId()));
+            retentionPeriodRepository.save(periodCalculator.produce(userTrackRepository, userTrack.getTrackingId()));
         }
+        userTrackRepository.save(userTrack);
     }
 }
