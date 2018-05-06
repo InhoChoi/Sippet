@@ -1,14 +1,13 @@
-package com.sippet.dashboard.schedular;
+package com.sippet.dashboard.scheduler;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
-@EnableScheduling
+@Component
 public class StatisticsScheduler {
-    @Scheduled(cron = "0 0 16 * * *")
+    @Scheduled(cron = "*/10 * * * * *")
     public void statisticsScheduling() {
         System.out.println("statisticsScheduling method!!!");
-
-        
     }
 }
