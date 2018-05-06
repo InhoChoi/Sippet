@@ -20,6 +20,8 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
     @Query(value = "SELECT COUNT(DISTINCT u.trackingId) FROM UserTrack u")
     int findCountTotalVisitor();
 
+    int countByTrackingId(@Param(value = "trackingId") String trackingId);
+
     //@Query(value = "Select u.createdAt from UserTrack u where u.trackingId = :trackingId order by u.id DESC")
     //LocalDateTime getLatestDate(@Param(value = "trackingId") String trackingId);
 

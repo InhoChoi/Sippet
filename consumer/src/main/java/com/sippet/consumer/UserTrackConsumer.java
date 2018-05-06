@@ -36,9 +36,14 @@ public class UserTrackConsumer {
                 .trackingId(userTrackDto.getTrackingId())
                 .build();
 
-        if(retentionPeriodRepository.checkTodayDataExist(userTrack.getTrackingId(), LocalDate.now()) <= 0) {
-            retentionPeriodRepository.save(periodCalculator.produce(userTrackRepository, userTrack.getTrackingId()));
+        if(isValid(userTrack)) {
+            retentionPeriodRepository.save(periodCalculator.calculate(userTrackRepository, userTrack.getTrackingId()));
         }
         userTrackRepository.save(userTrack);
+    }
+
+    private boolean isValid(UserTrack userTrack) {
+        return userTrackRepository.countByTrackingId(userTrack.getTrackingId()) > 0
+                && retentionPeriodRepository.checkTodayDataExist(userTrack.getTrackingId(), LocalDate.now()) <= 0;
     }
 }
