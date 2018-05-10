@@ -16,6 +16,7 @@ public class StatisticsScheduler {
     @Autowired
     UserStatisticsRepository userStatisticsRepository;
 
+    //TODO. 이 스케쥴러는 새벽 3시즘 돌릴 예정이기 때문에 date의 오늘은 포함하지 않는다.
     @Scheduled(cron = "*/10 * * * * *")
     public void statisticsScheduling() {
         System.out.println("statisticsScheduling method!!!");
