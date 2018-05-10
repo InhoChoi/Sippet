@@ -21,5 +21,12 @@ public class StatisticsScheduler {
         System.out.println("statisticsScheduling method!!!");
 
         System.out.println(userTrackRepository.countGroupByHrefAndDate());
+        System.out.println(userTrackRepository.countGroupByHrefAndDate().size());
+        System.out.println(userTrackRepository.countGroupByHrefAndDate().get(0));
+        System.out.println(userTrackRepository.countGroupByHrefAndDate().get(0).getCount());
+        System.out.println(userTrackRepository.countGroupByHrefAndDate().get(0).getHref());
+        System.out.println(userTrackRepository.countGroupByHrefAndDate().get(0).getDate());
+
+
     }
 }

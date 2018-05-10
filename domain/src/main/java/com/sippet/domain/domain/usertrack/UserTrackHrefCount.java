@@ -1,7 +1,9 @@
 package com.sippet.domain.domain.usertrack;
 
+import java.time.LocalDate;
+
 public interface UserTrackHrefCount {
-    String getDate();
+    LocalDate getDate();
     String getHref();
     int getCount();
 }
