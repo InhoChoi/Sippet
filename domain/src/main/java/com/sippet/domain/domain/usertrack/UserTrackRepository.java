@@ -27,6 +27,17 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
 
     UserTrack findTopByTrackingIdOrderByIdDesc(@Param(value = "trackingId") String trackingId);
 
-    @Query(value = "SELECT DATE(u.createdAt) as date, u.href as href, COUNT(u.href) as count FROM UserTrack u WHERE DATE(u.createdAt) < DATE(now()) GROUP BY u.href, DATE(u.createdAt) ORDER BY DATE(u.createdAt) DESC")
+    @Query(value = "SELECT " +
+            "DATE(u.createdAt) as date, " +
+            "u.host as host, " +
+            "u.href as href, " +
+            "u.pathName as pathName, " +
+            "u.referrerHost as referrerHost, " +
+            "u.referrerPath as referrerPath, " +
+            "COUNT(u.href) as count " +
+            "FROM UserTrack u " +
+            "WHERE DATE(u.createdAt) < DATE(now()) " +
+            "GROUP BY DATE(u.createdAt), u.host, u.href, u.pathName, u.referrerHost, u.referrerPath " +
+            "ORDER BY DATE(u.createdAt)")
     List<UserTrackHrefCount> countGroupByHrefAndDate();
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public interface RetentionPeriodRepository extends JpaRepository<RetentionPeriod, Long>{
@@ -22,4 +23,7 @@ public interface RetentionPeriodRepository extends JpaRepository<RetentionPeriod
 
     @Query(value = "Select createdAt from UserTrack where trackingId = :trackingId")
     LocalDateTime getTodayDate(@Param(value = "trackingId") String trackingId);
+
+    @Query(value = "Select retentionPeriod from RetentionPeriod where eventDate <= :eventDate")
+    List<Long> getAveragePeriod(@Param(value = "eventDate") LocalDate eventDate);
 }

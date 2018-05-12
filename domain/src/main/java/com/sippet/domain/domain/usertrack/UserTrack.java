@@ -25,9 +25,9 @@ public class UserTrack {
 
     private String pathName;
 
-    private String referrer_host;
+    private String referrerHost;
 
-    private String referrer_path;
+    private String referrerPath;
 
     @CreatedDate
     private LocalDateTime createdAt;
