@@ -1,4 +1,4 @@
-package com.sippet.domain.domain.usertrack;
+package com.sippet.domain.domain.usertrack.projection;
 
 import java.time.LocalDate;
 

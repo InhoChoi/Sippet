@@ -1,5 +1,6 @@
-package com.sippet.collector;
+package com.sippet.collector.api;
 
+import com.sippet.collector.amqp.UserTrackSender;
 import com.sippet.domain.service.TrackingResolver;
 import com.sippet.domain.service.TrackingResult;
 import lombok.extern.slf4j.Slf4j;

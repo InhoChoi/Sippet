@@ -1,5 +1,6 @@
-package com.sippet.collector;
+package com.sippet.collector.amqp;
 
+import com.sippet.collector.api.UserTrackRequest;
 import com.sippet.domain.domain.usertrack.UserTrackDto;
 import com.sippet.domain.service.TrackingResult;
 import lombok.extern.slf4j.Slf4j;
@@ -8,19 +9,18 @@ import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
 
 @Slf4j
 @Service
 class UserTrackDtoConverter {
-    UserTrackDto convert(UserTrackRequest userTrackRequest, TrackingResult trackingResult) {
+    public UserTrackDto convert(UserTrackRequest userTrackRequest, TrackingResult trackingResult) {
         final String referrer_path = parseReferrerPath(userTrackRequest.getReferrer());
         final String referrer_host = StringUtils.substringBefore(userTrackRequest.getReferrer(), referrer_path);
 
         return UserTrackDto.builder()
                 .pathName(userTrackRequest.getPathName())
-                .referrer_host(referrer_host)
-                .referrer_path(referrer_path)
+                .referrerHost(referrer_host)
+                .referrerPath(referrer_path)
                 .href(userTrackRequest.getHref())
                 .host(userTrackRequest.getHost())
                 .trackingId(trackingResult.getTrackingId())
