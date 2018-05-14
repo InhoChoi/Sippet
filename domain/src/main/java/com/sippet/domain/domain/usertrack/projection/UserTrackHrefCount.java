@@ -9,5 +9,5 @@ public interface UserTrackHrefCount {
     String getPathName();
     String getReferrerHost();
     String getReferrerPath();
-    int getCount();
+    Long getVisitCount();
 }

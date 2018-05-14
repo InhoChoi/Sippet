@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -31,8 +32,6 @@ public class UserStatistics {
 
     private Long visitCount;
 
-    private Long retentionPeriodAverage;
-
     @CreatedDate
-    private LocalDateTime date;
+    private LocalDate date;
 }

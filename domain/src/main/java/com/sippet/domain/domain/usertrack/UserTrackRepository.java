@@ -39,5 +39,19 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
             "WHERE DATE(u.createdAt) < DATE(now()) " +
             "GROUP BY DATE(u.createdAt), u.host, u.href, u.pathName, u.referrerHost, u.referrerPath " +
             "ORDER BY DATE(u.createdAt)")
-    List<UserTrackHrefCount> countGroupByHrefAndDate();
+    List<UserTrackHrefCount> countByHrefOfPastDates();
+
+    @Query(value = "SELECT " +
+            "DATE(u.createdAt) as date, " +
+            "u.host as host, " +
+            "u.href as href, " +
+            "u.pathName as pathName, " +
+            "u.referrerHost as referrerHost, " +
+            "u.referrerPath as referrerPath, " +
+            "COUNT(u.href) as visitCount " +
+            "FROM UserTrack u " +
+            "WHERE DATE(u.createdAt) = DATE(now()) - 1 " +
+            "GROUP BY DATE(u.createdAt), u.host, u.href, u.pathName, u.referrerHost, u.referrerPath " +
+            "ORDER BY DATE(u.createdAt)")
+    List<UserTrackHrefCount> countByHrefOfYesterday();
 }

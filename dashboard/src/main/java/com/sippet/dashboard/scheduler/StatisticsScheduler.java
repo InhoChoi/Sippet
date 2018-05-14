@@ -4,12 +4,13 @@ import com.sippet.domain.domain.retention.RetentionPeriodRepository;
 import com.sippet.domain.domain.userstatistics.UserStatistics;
 import com.sippet.domain.domain.userstatistics.UserStatisticsRepository;
 import com.sippet.domain.domain.usertrack.UserTrackRepository;
+import com.sippet.domain.domain.usertrack.projection.UserTrackHrefCount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Component
 public class StatisticsScheduler {
@@ -24,20 +25,31 @@ public class StatisticsScheduler {
 
     //TODO. 이 스케쥴러는 새벽 3시즘 돌릴 예정이기 때문에 date의 오늘은 포함하지 않는다.
     @Scheduled(cron = "*/10 * * * * *")
+    @Transactional
     public void statisticsScheduling() {
         System.out.println("statisticsScheduling method!!!");
 
-        System.out.println(userTrackRepository.countGroupByHrefAndDate());
-        System.out.println(userTrackRepository.countGroupByHrefAndDate().size());
-        System.out.println(userTrackRepository.countGroupByHrefAndDate().get(0));
-//        System.out.println(userTrackRepository.countGroupByHrefAndDate().get(0).getCount());
-//        System.out.println(userTrackRepository.countGroupByHrefAndDate().get(0).getHref());
-//        System.out.println(userTrackRepository.countGroupByHrefAndDate().get(0).getDate());
+        //TODO. 이 userTrackRepository.countByHrefOfYesterday() 에서 select와 group by에 따라 count 갯수 기준이 달라진다.
+        System.out.println(userTrackRepository.countByHrefOfYesterday());
+        System.out.println(userTrackRepository.countByHrefOfYesterday().size());
+        System.out.println(userTrackRepository.countByHrefOfYesterday().get(0));
 
-//        userStatisticsRepository.save();
+        final List<UserTrackHrefCount> countList = userTrackRepository.countByHrefOfYesterday();
 
-        System.out.println(retentionPeriodRepository.getAveragePeriod(userTrackRepository.countGroupByHrefAndDate().get(userTrackRepository.countGroupByHrefAndDate().size() - 1).getDate()));
-//        System.out.println(retentionPeriodRepository.getAveragePeriod(LocalDate.of(2018, 4, 30)).size());
-//        System.out.println(retentionPeriodRepository.getAveragePeriod(LocalDate.of(2018, 4, 30)).get(0));
+        for(UserTrackHrefCount count : countList) {
+            userStatisticsRepository.save(build(count));
+        }
+    }
+
+    private UserStatistics build(UserTrackHrefCount count) {
+        return UserStatistics.builder()
+                .host(count.getHost())
+                .href(count.getHref())
+                .pathName(count.getPathName())
+                .referrerHost(count.getReferrerHost())
+                .referrerPath(count.getReferrerPath())
+                .visitCount(count.getVisitCount())
+                .date(count.getDate())
+                .build();
     }
 }
