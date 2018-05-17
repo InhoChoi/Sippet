@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -32,16 +33,22 @@ public class StatisticsScheduler {
         //TODO. 이 userTrackRepository.countByHrefOfYesterday() 에서 select와 group by에 따라 count 갯수 기준이 달라진다.
         System.out.println(userTrackRepository.countByHrefOfYesterday());
         System.out.println(userTrackRepository.countByHrefOfYesterday().size());
-        System.out.println(userTrackRepository.countByHrefOfYesterday().get(0));
+//        System.out.println(userTrackRepository.countByHrefOfYesterday().get(0));
 
         final List<UserTrackHrefCount> countList = userTrackRepository.countByHrefOfYesterday();
 
-        for(UserTrackHrefCount count : countList) {
-            userStatisticsRepository.save(build(count));
+        if(countList.size() == 0) {
+            return ;
         }
+
+        final List<UserStatistics> statisticsList = new ArrayList<>();
+        for(UserTrackHrefCount count : countList) {
+            statisticsList.add(convert(count));
+        }
+        userStatisticsRepository.save(statisticsList);
     }
 
-    private UserStatistics build(UserTrackHrefCount count) {
+    private UserStatistics convert(UserTrackHrefCount count) {
         return UserStatistics.builder()
                 .host(count.getHost())
                 .href(count.getHref())

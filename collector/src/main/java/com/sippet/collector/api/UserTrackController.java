@@ -1,7 +1,7 @@
 package com.sippet.collector.api;
 
 import com.sippet.collector.amqp.UserTrackSender;
-import com.sippet.domain.service.TrackingResolver;
+import com.sippet.domain.service.TrackingUserValidator;
 import com.sippet.domain.service.TrackingResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/api/track")
 public class UserTrackController {
     @Autowired
-    private TrackingResolver trackingResolver;
+    private TrackingUserValidator userValidator;
 
     @Autowired
     private UserTrackSender userTrackSender;
@@ -26,7 +26,8 @@ public class UserTrackController {
                          @CookieValue(value = "newVisitor", required = false) Boolean newVisistor,
                          @CookieValue(value = "trackingId", required = false) String trackingId,
                          HttpServletResponse httpServletResponse) {
-        final TrackingResult trackingResult = trackingResolver.resolve(newVisistor, trackingId);
+
+        final TrackingResult trackingResult = userValidator.execute(newVisistor, trackingId);
         bakeTrackingCookie(httpServletResponse, trackingResult);
 
         userTrackSender.send(userTrackRequest, trackingResult);
