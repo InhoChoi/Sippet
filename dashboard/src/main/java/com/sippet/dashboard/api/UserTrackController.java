@@ -1,6 +1,6 @@
 package com.sippet.dashboard.api;
 
-import com.sippet.domain.domain.usertrack.UserTrackPathNameCount;
+import com.sippet.domain.domain.usertrack.projection.UserTrackPathNameCount;
 import com.sippet.domain.domain.usertrack.UserTrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

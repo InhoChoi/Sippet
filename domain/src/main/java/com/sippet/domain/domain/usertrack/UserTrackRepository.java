@@ -1,13 +1,13 @@
 package com.sippet.domain.domain.usertrack;
 
+import com.sippet.domain.domain.usertrack.projection.UserTrackHrefCount;
+import com.sippet.domain.domain.usertrack.projection.UserTrackPathNameCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
@@ -20,8 +20,38 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
     @Query(value = "SELECT COUNT(DISTINCT u.trackingId) FROM UserTrack u")
     int findCountTotalVisitor();
 
+    int countByTrackingId(@Param(value = "trackingId") String trackingId);
+
     //@Query(value = "Select u.createdAt from UserTrack u where u.trackingId = :trackingId order by u.id DESC")
     //LocalDateTime getLatestDate(@Param(value = "trackingId") String trackingId);
 
     UserTrack findTopByTrackingIdOrderByIdDesc(@Param(value = "trackingId") String trackingId);
+
+    @Query(value = "SELECT " +
+            "DATE(u.createdAt) as date, " +
+            "u.host as host, " +
+            "u.href as href, " +
+            "u.pathName as pathName, " +
+            "u.referrerHost as referrerHost, " +
+            "u.referrerPath as referrerPath, " +
+            "COUNT(u.href) as count " +
+            "FROM UserTrack u " +
+            "WHERE DATE(u.createdAt) < DATE(now()) " +
+            "GROUP BY DATE(u.createdAt), u.host, u.href, u.pathName, u.referrerHost, u.referrerPath " +
+            "ORDER BY DATE(u.createdAt)")
+    List<UserTrackHrefCount> countByHrefOfPastDates();
+
+    @Query(value = "SELECT " +
+            "DATE(u.createdAt) as date, " +
+            "u.host as host, " +
+            "u.href as href, " +
+            "u.pathName as pathName, " +
+            "u.referrerHost as referrerHost, " +
+            "u.referrerPath as referrerPath, " +
+            "COUNT(u.href) as visitCount " +
+            "FROM UserTrack u " +
+            "WHERE DATE(u.createdAt) = DATE(now()) - 1 " +
+            "GROUP BY DATE(u.createdAt), u.host, u.href, u.pathName, u.referrerHost, u.referrerPath " +
+            "ORDER BY DATE(u.createdAt)")
+    List<UserTrackHrefCount> countByHrefOfYesterday();
 }

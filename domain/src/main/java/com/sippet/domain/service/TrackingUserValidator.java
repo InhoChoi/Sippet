@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class TrackingResolver {
-    public TrackingResult resolve(Boolean newVisitor, String trackingId) {
+public class TrackingUserValidator {
+    public TrackingResult execute(Boolean newVisitor, String trackingId) {
 
         if(NullChecker.check(newVisitor, trackingId)) {
             return TrackingResult.newUser();

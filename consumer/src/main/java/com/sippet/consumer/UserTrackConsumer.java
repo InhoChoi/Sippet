@@ -29,17 +29,21 @@ public class UserTrackConsumer {
         final UserTrack userTrack = UserTrack.builder()
                 .host(userTrackDto.getHost())
                 .href(userTrackDto.getHref())
-                .referrer_host(userTrackDto.getReferrer_host())
-                .referrer_path(userTrackDto.getReferrer_path())
+                .referrerHost(userTrackDto.getReferrerHost())
+                .referrerPath(userTrackDto.getReferrerPath())
                 .pathName(userTrackDto.getPathName())
                 .newVisitor(userTrackDto.getNewVisitor())
                 .trackingId(userTrackDto.getTrackingId())
                 .build();
 
-        userTrackRepository.save(userTrack);
-        if(retentionPeriodRepository.checkTodayDataExist(userTrack.getTrackingId(), LocalDate.now()) <= 0) {
-            retentionPeriodRepository
-                    .save(periodCalculator.produce(userTrackRepository, userTrack.getTrackingId()));
+        if(isValid(userTrack)) {
+            retentionPeriodRepository.save(periodCalculator.calculate(userTrackRepository, userTrack.getTrackingId()));
         }
+        userTrackRepository.save(userTrack);
+    }
+
+    private boolean isValid(UserTrack userTrack) {
+        return userTrackRepository.countByTrackingId(userTrack.getTrackingId()) > 0
+                && retentionPeriodRepository.checkTodayDataExist(userTrack.getTrackingId(), LocalDate.now()) <= 0;
     }
 }

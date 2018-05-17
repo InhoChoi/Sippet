@@ -1,11 +1,11 @@
-package com.sippet.collector;
+package com.sippet.collector.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-class UserTrackRequest {
+public class UserTrackRequest {
     private String host;
 
     private String href;
