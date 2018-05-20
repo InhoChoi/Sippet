@@ -31,6 +31,5 @@ public class UserStatistics {
 
     private Long visitCount;
 
-    @CreatedDate
     private LocalDate date;
 }
