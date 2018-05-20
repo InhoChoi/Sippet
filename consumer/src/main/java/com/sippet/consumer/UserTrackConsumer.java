@@ -1,6 +1,5 @@
 package com.sippet.consumer;
 
-import com.sippet.domain.builder.UserTrackBuilder;
 import com.sippet.domain.database.retention.RetentionPeriodRepository;
 import com.sippet.domain.database.usertrack.UserTrack;
 import com.sippet.domain.database.usertrack.UserTrackDto;
@@ -15,9 +14,6 @@ import java.time.LocalDate;
 @Slf4j
 @Service
 public class UserTrackConsumer {
-    @Autowired
-    private UserTrackBuilder userTrackBuilder;
-
     @Autowired
     private UserTrackRepository userTrackRepository;
 

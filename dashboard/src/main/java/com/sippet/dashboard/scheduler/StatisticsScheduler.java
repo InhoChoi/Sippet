@@ -33,6 +33,7 @@ public class StatisticsScheduler {
     @Scheduled(cron = "*/10 * * * * *")
     @Transactional
     public void statisticsScheduling() {
+        log.info("StatisticsScheduler statisticsScheduling method!!!");
         final List<UserTrackHrefCount> countList = userTrackRepository.countByHrefOfYesterday();
 
         if(countList.size() == 0) {
