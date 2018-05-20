@@ -1,9 +1,10 @@
 package com.sippet.consumer;
 
-import com.sippet.domain.domain.retention.RetentionPeriodRepository;
-import com.sippet.domain.domain.usertrack.UserTrack;
-import com.sippet.domain.domain.usertrack.UserTrackDto;
-import com.sippet.domain.domain.usertrack.UserTrackRepository;
+import com.sippet.domain.builder.UserTrackBuilder;
+import com.sippet.domain.database.retention.RetentionPeriodRepository;
+import com.sippet.domain.database.usertrack.UserTrack;
+import com.sippet.domain.database.usertrack.UserTrackDto;
+import com.sippet.domain.database.usertrack.UserTrackRepository;
 import com.sippet.domain.service.PeriodCalculator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import java.time.LocalDate;
 @Slf4j
 @Service
 public class UserTrackConsumer {
+    @Autowired
+    private UserTrackBuilder userTrackBuilder;
+
     @Autowired
     private UserTrackRepository userTrackRepository;
 

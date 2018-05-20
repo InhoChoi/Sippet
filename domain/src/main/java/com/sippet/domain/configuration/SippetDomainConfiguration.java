@@ -1,6 +1,7 @@
 package com.sippet.domain.configuration;
 
-import com.sippet.domain.domain.Domains;
+import com.sippet.domain.Domains;
+import com.sippet.domain.builder.UserTrackBuilder;
 import com.sippet.domain.service.Services;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -18,4 +19,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackageClasses = {Services.class, Domains.class})
 @Configuration
 public class SippetDomainConfiguration {
+    @Bean
+    public UserTrackBuilder userTrackBuilder() {
+        return new UserTrackBuilder();
+    }
 }

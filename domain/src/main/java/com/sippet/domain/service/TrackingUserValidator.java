@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class TrackingUserValidator {
-    public TrackingResult execute(Boolean newVisitor, String trackingId) {
+    public TrackingUser execute(Boolean newVisitor, String trackingId) {
 
         if(NullChecker.check(newVisitor, trackingId)) {
-            return TrackingResult.newUser();
+            return TrackingUser.newUser();
         }
 
         // newVisitor와 TrackingId 둘다 존재하는 경우는 newVisitor로 판단하지 않는다.
-        return TrackingResult.create(trackingId, false);
+        return TrackingUser.returnVisitUser(trackingId, false);
     }
 }

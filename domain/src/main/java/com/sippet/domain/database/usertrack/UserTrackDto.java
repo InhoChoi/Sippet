@@ -1,4 +1,4 @@
-package com.sippet.domain.domain.usertrack;
+package com.sippet.domain.database.usertrack;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
