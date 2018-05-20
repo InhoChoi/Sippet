@@ -1,4 +1,4 @@
-package com.sippet.domain.domain.retention;
+package com.sippet.domain.database.retention;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

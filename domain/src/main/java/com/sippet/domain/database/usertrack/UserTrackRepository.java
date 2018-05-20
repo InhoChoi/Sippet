@@ -1,7 +1,7 @@
-package com.sippet.domain.domain.usertrack;
+package com.sippet.domain.database.usertrack;
 
-import com.sippet.domain.domain.usertrack.projection.UserTrackHrefCount;
-import com.sippet.domain.domain.usertrack.projection.UserTrackPathNameCount;
+import com.sippet.domain.database.usertrack.projection.UserTrackHrefCount;
+import com.sippet.domain.database.usertrack.projection.UserTrackPathNameCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

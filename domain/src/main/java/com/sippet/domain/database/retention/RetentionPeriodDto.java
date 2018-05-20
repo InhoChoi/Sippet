@@ -1,4 +1,4 @@
-package com.sippet.domain.domain.retention;
+package com.sippet.domain.database.retention;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class Dates {
+public class LocalDateTimeUtils {
     /**
      * Get today date
      *

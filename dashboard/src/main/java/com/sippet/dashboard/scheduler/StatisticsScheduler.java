@@ -1,10 +1,11 @@
 package com.sippet.dashboard.scheduler;
 
-import com.sippet.domain.domain.retention.RetentionPeriodRepository;
-import com.sippet.domain.domain.userstatistics.UserStatistics;
-import com.sippet.domain.domain.userstatistics.UserStatisticsRepository;
-import com.sippet.domain.domain.usertrack.UserTrackRepository;
-import com.sippet.domain.domain.usertrack.projection.UserTrackHrefCount;
+import com.sippet.domain.database.retention.RetentionPeriodRepository;
+import com.sippet.domain.database.userstatistics.UserStatistics;
+import com.sippet.domain.database.userstatistics.UserStatisticsRepository;
+import com.sippet.domain.database.usertrack.UserTrackRepository;
+import com.sippet.domain.database.usertrack.projection.UserTrackHrefCount;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 public class StatisticsScheduler {
     @Autowired
@@ -28,23 +33,22 @@ public class StatisticsScheduler {
     @Scheduled(cron = "*/10 * * * * *")
     @Transactional
     public void statisticsScheduling() {
-        System.out.println("statisticsScheduling method!!!");
-
-        //TODO. 이 userTrackRepository.countByHrefOfYesterday() 에서 select와 group by에 따라 count 갯수 기준이 달라진다.
-        System.out.println(userTrackRepository.countByHrefOfYesterday());
-        System.out.println(userTrackRepository.countByHrefOfYesterday().size());
-//        System.out.println(userTrackRepository.countByHrefOfYesterday().get(0));
-
+        log.info("StatisticsScheduler statisticsScheduling method!!!");
         final List<UserTrackHrefCount> countList = userTrackRepository.countByHrefOfYesterday();
 
         if(countList.size() == 0) {
             return ;
         }
 
-        final List<UserStatistics> statisticsList = new ArrayList<>();
-        for(UserTrackHrefCount count : countList) {
-            statisticsList.add(convert(count));
-        }
+//        final List<UserStatistics> statisticsList = new ArrayList<>();
+//        for(UserTrackHrefCount count : countList) {
+//            statisticsList.add(convert(count));
+//        }
+
+        final List<UserStatistics> statisticsList = countList.stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
+
         userStatisticsRepository.save(statisticsList);
     }
 

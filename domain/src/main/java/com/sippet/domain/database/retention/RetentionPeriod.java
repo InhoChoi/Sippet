@@ -1,4 +1,4 @@
-package com.sippet.domain.domain.retention;
+package com.sippet.domain.database.retention;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

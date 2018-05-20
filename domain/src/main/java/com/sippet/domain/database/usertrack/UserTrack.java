@@ -1,11 +1,10 @@
-package com.sippet.domain.domain.userstatistics;
+package com.sippet.domain.database.usertrack;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserStatistics {
+public class UserTrack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,8 +29,10 @@ public class UserStatistics {
 
     private String referrerPath;
 
-    private Long visitCount;
-
     @CreatedDate
-    private LocalDate date;
+    private LocalDateTime createdAt;
+
+    private String trackingId;
+
+    private Boolean newVisitor;
 }
