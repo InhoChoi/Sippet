@@ -5,6 +5,7 @@ import com.sippet.domain.database.usertrack.UserTrackDto;
 import com.sippet.domain.service.TrackingUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -13,7 +14,7 @@ import java.net.URISyntaxException;
 @Slf4j
 @Service
 class UserTrackDtoConverter {
-    public UserTrackDto convert(UserTrackRequest userTrackRequest, TrackingUser trackingUser) {
+    UserTrackDto convert(UserTrackRequest userTrackRequest, TrackingUser trackingUser) {
         final String referrerPath = createReferrerPath(userTrackRequest.getReferrer());
         final String referrerHost = createReferrerHost(userTrackRequest.getReferrer(), referrerPath);
 
@@ -28,7 +29,7 @@ class UserTrackDtoConverter {
                 .build();
     }
 
-    public static String createReferrerPath(String path) {
+    private static String createReferrerPath(String path) {
         try {
             return new URI(path).getPath();
         } catch (URISyntaxException e) {
@@ -37,7 +38,7 @@ class UserTrackDtoConverter {
         }
     }
 
-    public static String createReferrerHost(String referrer, String substringPosition) {
+    private static String createReferrerHost(String referrer, String substringPosition) {
         return StringUtils.substringBefore(referrer, substringPosition);
     }
 }

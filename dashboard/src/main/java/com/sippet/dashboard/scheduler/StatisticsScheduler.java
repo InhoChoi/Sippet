@@ -4,17 +4,14 @@ import com.sippet.domain.database.retention.RetentionPeriodRepository;
 import com.sippet.domain.database.userstatistics.UserStatistics;
 import com.sippet.domain.database.userstatistics.UserStatisticsRepository;
 import com.sippet.domain.database.usertrack.UserTrackRepository;
-import com.sippet.domain.database.usertrack.projection.UserTrackHrefCount;
+import com.sippet.domain.database.usertrack.UserTrackHrefCount;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Slf4j

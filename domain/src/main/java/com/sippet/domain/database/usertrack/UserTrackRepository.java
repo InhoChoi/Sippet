@@ -1,7 +1,5 @@
 package com.sippet.domain.database.usertrack;
 
-import com.sippet.domain.database.usertrack.projection.UserTrackHrefCount;
-import com.sippet.domain.database.usertrack.projection.UserTrackPathNameCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -54,4 +52,6 @@ public interface UserTrackRepository extends JpaRepository<UserTrack, Long> {
             "GROUP BY DATE(u.createdAt), u.host, u.href, u.pathName, u.referrerHost, u.referrerPath " +
             "ORDER BY DATE(u.createdAt)")
     List<UserTrackHrefCount> countByHrefOfYesterday();
+
+    List<UserTrack> findAll();
 }
